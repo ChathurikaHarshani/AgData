@@ -13,8 +13,23 @@ library(tmaptools)
 
 
 
-
 ui <- fluidPage(
+
+  tags$head(
+    tags$style(
+      HTML(
+        "
+        .custom-box {
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          padding: 10px;
+          margin: 10px;
+          background-color: #f9f9f9;
+        }
+        "
+      )
+    )
+  ),
 
 
 
@@ -39,72 +54,91 @@ ui <- fluidPage(
 
     )
   ),
+
+
   tabsetPanel(
     type = "hidden",  # Hidden tabs
     tabPanel("Tab 1",
 
-             box(width = 2, background ="black",
 
-                 h4("Field Data ",align = "left"),
 
-                 selectInput("Fields_Info", "Select Field",
-                             c( "2015 S","Field 2","Field 3")),
+             box(width = 4,
 
-                 h4("Map Data ",align = "left"),
+                 div(class = "custom-box",
+                     h4("Field Data"),
+                     p(
 
-                 sidebarMenu(
-                   menuItem("Field Information", tabName = "item1",selected = 1),
-                   menuItem("Field Nitrogen Treatment", tabName = "item2"),
-                   menuItem("Field SI ", tabName = "item3"),
-                   menuItem("Yield ", tabName = "item4")
+                       selectInput("Fields_Info", "Select Field",
+                                   c( "2015 S","Field 2","Field 3")))
                  ),
 
-                 selectInput("NRx_variable", "Select Treatment Date",
-                             c( "2023_June_20" = "Rx_6_20",
-                                "2023_June_29" = "Rx_6_29",
-                                "2023_July_11" = "Rx_7_11")),
-
-                 selectInput("SI_variable", "Select SI Date",
-                             c( "2023_June_15" = "SI_6_15",
-                                "2023_June_23" = "SI_6_23",
-                                "2023_July_06" = "SI_7_6",
-                                "2023_July_19" = "SI_7_19",
-                                "2023_August_03" = "SI_8_3",
-                                "2023_August_18" = "SI_8_18")),
+                 div(class = "custom-box",
+                     h4("Map Data "),
+                     p(sidebarMenu(
+                       menuItem("Field Information", tabName = "item1",selected = TRUE),
+                       menuItem("Field Nitrogen Treatment", tabName = "item2"),
+                       menuItem("Field SI ", tabName = "item3"),
+                       menuItem("Yield ", tabName = "item4")
+                     ),
 
 
-                 h4("",align = "left"),
-                 h4("Filter Data ",align = "left"),
+                     selectInput("NRx_variable", "Select Treatment Date",
+                                 c( "2023_June_20" = "Rx_6_20",
+                                    "2023_June_29" = "Rx_6_29",
+                                    "2023_July_11" = "Rx_7_11")),
 
-
-                 selectInput("Sector_variable", "Select Sector",
-                             c( "1","2","3","4","5","6","7","8","9","10","11","12")),
-
-
-                 dataTableOutput("sectorTable"),
-
-
+                     selectInput("SI_variable", "Select SI Date",
+                                 c( "2023_June_15" = "SI_6_15",
+                                    "2023_June_23" = "SI_6_23",
+                                    "2023_July_06" = "SI_7_6",
+                                    "2023_July_19" = "SI_7_19",
+                                    "2023_August_03" = "SI_8_3",
+                                    "2023_August_18" = "SI_8_18")))
+                 ),
 
 
 
 
+                 div(class = "custom-box",
+                     h4("Filter Data"),
+                     p(
 
-                 h4("Downloads ",align = "left"),
-                 downloadButton("downloadData1", "Map Data"),
-                 h4(),
-                 downloadButton("downloadData2", "Prescription Map"),
+                       selectInput("Sector_variable", "Select Sector",
+                                   c( "1","2","3","4","5","6","7","8","9","10","11","12")),
+
+
+                       dataTableOutput("sectorTable"))
+                 ),
+
+
+
+                 div(class = "custom-box",
+                     h4("Downloads"),
+                     p(
+                       downloadButton("downloadData1", "Map Data"),
+                       h4(),
+                       downloadButton("downloadData2", "Prescription Map")
+
+                       )
+                 ),
+
+
+
+
+
+
 
              ),
 
 
              dashboardBody(
-               box(width = 10,
+               box(width = 8,leafletOutput("Field_map_data"),
 
                    tabItems(
                      tabItem(tabName = "item1",
 
                              #leafletOutput("map"),
-                             leafletOutput("Field_map_data")
+                             #leafletOutput("Field_map_data")
 
                      ),
 
@@ -150,12 +184,13 @@ server <- function(input, output) {
   mydata<-read.csv("data/2023/21_ENREC_BuffTreatmentSectors.csv")
 
   str(mymap)
-  map_and_data<-cross_join(mymap,mydata)
+  map_and_data<-inner_join(mymap,mydata)
 
   ####################################################################
 
 
-  Field_map <- tm_shape(map_and_data) +tm_polygons(midpoint = 0)+
+  Field_map <- tm_shape(map_and_data) +tm_polygons(midpoint = 0,
+                                                   popup.vars = c("Sector No: " = "SECTOR", "Treatment Type: " = "Treatment"))+
     tm_borders(lwd = 0.5) +
     tm_layout(
       frame = FALSE,
@@ -176,7 +211,12 @@ server <- function(input, output) {
   NRx_tm_map <- reactive({
     tm_map <- tm_shape(map_and_data) + tm_polygons(
       col = input$NRx_variable,
-      popup.vars = c("Sector No: " = "Sector", "Treatment Type: " = "Treatment"),
+      popup.vars = c("Sector No: " = "SECTOR",
+                     "N rate for date"=input$NRx_variable,
+                     "Treatment Method: " = "Ntreatment",
+                     "N Base Rate: " = "NH3_Base_Rx",
+                     "Applied N Rate:"="Applied_NRate"
+      ),
       midpoint = 0
     ) + tm_borders(lwd = 0.5) + tm_layout(
       frame = FALSE,
@@ -196,11 +236,14 @@ server <- function(input, output) {
   ############################################################################
 
 
-  # Define a reactive expression to access input$variable
+  # SI Map
   reactive_tm_map <- reactive({
-    tm_map <- tm_shape(map_and_data) + tm_polygons(
+    tm_map<- tm_shape(map_and_data) + tm_polygons(
       col = input$SI_variable,
-      popup.vars = c("Sector No: " = "Sector", "Treatment Type: " = "Treatment"),
+       popup.vars = c("Sector No: " = "SECTOR",
+                      "SI for date"=input$SI_variable,
+                      "Treatment Method: " = "Ntreatment"
+                      ),
       midpoint = 0
     ) + tm_borders(lwd = 0.5) + tm_layout(
       frame = FALSE,
@@ -211,7 +254,7 @@ server <- function(input, output) {
 
   # Create the Leaflet map using the reactive_tm_map
   output$SImap <- renderLeaflet({
-    tm_map <- reactive_tm_map()
+    tm_map<- reactive_tm_map()
     tmap_leaflet(tm_map)
   })
 
@@ -222,8 +265,8 @@ server <- function(input, output) {
   # Yield Data
   Yield_tm_map <- reactive({
     tm_map <- tm_shape(map_and_data) + tm_polygons(
-      col = input$SI_variable,
-      popup.vars = c("Sector No: " = "Sector", "Yield (bu/ac): " = "Yield"),
+      popup.vars = c("Sector No: " = "SECTOR",
+                     "Yield (bu/ac): " = "Yield"),
       midpoint = 0
     ) + tm_borders(lwd = 0.5) + tm_layout(
       frame = FALSE,
@@ -245,11 +288,11 @@ server <- function(input, output) {
   filteredData <- reactive({
     req(input$Sector_variable)  # Ensure that the input is available
     mydata %>%
-      filter(Sector == input$Sector_variable) %>%
-      select(Sector, Ntreatment, Field, NH3_Base_Rx, Rx_6_20, Rx_6_29, Rx_7_11, SI_6_15, SI_6_23, SI_7_6, SI_7_19, SI_8_3) %>%
+      filter(SECTOR == input$Sector_variable) %>%
+      select(SECTOR, Ntreatment, Field, NH3_Base_Rx, Rx_6_20, Rx_6_29, Rx_7_11, SI_6_15, SI_6_23, SI_7_6, SI_7_19, SI_8_3) %>%
       mutate(across(everything(), as.character)) %>%
-      pivot_longer(cols = -Sector, names_to = "Sector Info", values_to = "Values") %>%
-      select(-Sector)
+      pivot_longer(cols = -SECTOR, names_to = "Sector Info", values_to = "Values") %>%
+      select(-SECTOR)
   })
 
 
@@ -268,17 +311,17 @@ server <- function(input, output) {
 
     # Create a data frame containing only the necessary columns
     plot_data <- mydata %>%
-      select(Sector, NH3_Base_Rx, Rx_6_20, Rx_6_29, Rx_7_11)
+      select(SECTOR, NH3_Base_Rx, Rx_6_20, Rx_6_29, Rx_7_11)
 
     # Reshape the data from wide to long format using tidyr
     plot_data_long <- plot_data %>%
-      pivot_longer(cols = -Sector, names_to = "Treatment", values_to = "Value")
+      pivot_longer(cols = -SECTOR, names_to = "Treatment", values_to = "Value")
 
     # Create a bar plot
-    ggplot(plot_data_long, aes(x = factor(Sector), y = Value, fill = Treatment)) +
+    ggplot(plot_data_long, aes(x = factor(SECTOR), y = Value, fill = Treatment)) +
       geom_bar(stat = "identity", position = "dodge") +
       labs(
-        x = "Sector",
+        x = "SECTOR",
         y = "Nitrogen Rate ()",
         fill = "Treatment"
       ) +
@@ -295,14 +338,14 @@ server <- function(input, output) {
   output$SIplot <-  plotly::renderPlotly({
 
     #Create a subset of data for the variables of interest
-    subset_data <- mydata[, c("Sector", "SI_6_15", "SI_6_23", "SI_7_6", "SI_7_19", "SI_8_3", "SI_8_18")]
+    subset_data <- mydata[, c("SECTOR", "SI_6_15", "SI_6_23", "SI_7_6", "SI_7_19", "SI_8_3", "SI_8_18")]
 
     # Reshape the data into long format for plotting
 
-    subset_data_long <- pivot_longer(subset_data, cols = -Sector, names_to = "Variable", values_to = "Value")
+    subset_data_long <- pivot_longer(subset_data, cols = -SECTOR, names_to = "Variable", values_to = "Value")
 
     # Create a bar plot for each variable
-    ggplot(subset_data_long, aes(x = factor(Sector), y = Value, fill = Variable)) +
+    ggplot(subset_data_long, aes(x = factor(SECTOR), y = Value, fill = Variable)) +
       geom_bar(stat = "identity", position = "dodge") +
       labs(title = "Bar Plot of Variables by Sector", y = "Value") +
       theme_minimal() +
