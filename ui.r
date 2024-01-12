@@ -13,7 +13,10 @@ library(tmaptools)
 
 
 
+
 ui <- fluidPage(
+
+
 
   tags$head(
     tags$style(
@@ -56,6 +59,19 @@ ui <- fluidPage(
                    menuItem("Yield ", tabName = "item4")
                  ),
 
+                 selectInput("NRx_variable", "Select Treatment Date",
+                             c( "2023_June_20" = "Rx_6_20",
+                                "2023_June_29" = "Rx_6_29",
+                                "2023_July_11" = "Rx_7_11")),
+
+                 selectInput("SI_variable", "Select SI Date",
+                             c( "2023_June_15" = "SI_6_15",
+                                "2023_June_23" = "SI_6_23",
+                                "2023_July_06" = "SI_7_6",
+                                "2023_July_19" = "SI_7_19",
+                                "2023_August_03" = "SI_8_3",
+                                "2023_August_18" = "SI_8_18")),
+
 
                  h4("",align = "left"),
                  h4("Filter Data ",align = "left"),
@@ -69,18 +85,7 @@ ui <- fluidPage(
 
 
 
-                 selectInput("NRx_variable", "Select Treatment Date",
-                             c( "2023_June_20" = "Rx_6_20",
-                                "2023_June_29" = "Rx_6_29",
-                                "2023_July_11" = "Rx_7_11")),
 
-                 selectInput("SI_variable", "Select SI Date",
-                             c( "2023_June_15" = "SI_6_15",
-                                "2023_June_23" = "SI_6_23",
-                                "2023_July_06" = "SI_7_6",
-                                "2023_July_19" = "SI_7_19",
-                                "2023_August_03" = "SI_8_3",
-                                "2023_August_18" = "SI_8_18")),
 
 
 
@@ -98,6 +103,7 @@ ui <- fluidPage(
                    tabItems(
                      tabItem(tabName = "item1",
 
+                             #leafletOutput("map"),
                              leafletOutput("Field_map_data")
 
                      ),
@@ -109,10 +115,18 @@ ui <- fluidPage(
                      ),
                      tabItem(tabName = "item3",
                              leafletOutput("SImap"),
-                             plotOutput(outputId = "Secplot"),
+                             #plotOutput(outputId = "Secplot"),
                              plotly::plotlyOutput("SIplot")
 
+                     ),
+                     tabItem(tabName = "item4",
+                             leafletOutput("Yieldmap")
+                             #plotOutput(outputId = "Secplot"),
+                             #plotly::plotlyOutput("Yieldplot")
+
                      )
+
+
                    ),
 
                ),
@@ -136,7 +150,7 @@ server <- function(input, output) {
   mydata<-read.csv("data/2023/21_ENREC_BuffTreatmentSectors.csv")
 
   str(mymap)
-  map_and_data<-inner_join(mymap,mydata)
+  map_and_data<-cross_join(mymap,mydata)
 
   ####################################################################
 
@@ -148,7 +162,6 @@ server <- function(input, output) {
       inner.margins = c(0, 0, 0, 0)
     )
   Field_map_data <- tmap_leaflet(Field_map)
-
 
 
   output$Field_map_data <- renderLeaflet({
@@ -199,6 +212,29 @@ server <- function(input, output) {
   # Create the Leaflet map using the reactive_tm_map
   output$SImap <- renderLeaflet({
     tm_map <- reactive_tm_map()
+    tmap_leaflet(tm_map)
+  })
+
+
+  ############################################################################
+
+
+  # Yield Data
+  Yield_tm_map <- reactive({
+    tm_map <- tm_shape(map_and_data) + tm_polygons(
+      col = input$SI_variable,
+      popup.vars = c("Sector No: " = "Sector", "Yield (bu/ac): " = "Yield"),
+      midpoint = 0
+    ) + tm_borders(lwd = 0.5) + tm_layout(
+      frame = FALSE,
+      inner.margins = c(0, 0, 0, 0)
+    )
+    return(tm_map)
+  })
+
+  # Create the Leaflet map using the reactive_tm_map
+  output$Yieldmap <- renderLeaflet({
+    tm_map <- Yield_tm_map()
     tmap_leaflet(tm_map)
   })
 
@@ -286,26 +322,26 @@ server <- function(input, output) {
 
 
 
-  output$Secplot <- renderPlot({
-
-    files <- list.files("files/SI-data-test/", "Analysis", full.names = T)
-    res <- purrr::map(files, foreign::read.dbf) %>%
-      tibble(df = ., name = files,dates = ymd(c("2021-05-26", "2021-06-08", "2021-06-14", "2021-06-21", "2021-06-28",
-                                                "2021-07-06", "2021-07-19", "2021-07-26", "2021-08-02", "2021-08-10", "2021-08-16", "2021-08-24"))) %>%
-      tidyr::unnest(df)
-
-
-
-    res %>%
-      select(dates,Sector, SI) %>%
-      tidyr::pivot_wider(names_from = dates, values_from = SI, values_fn = mean) %>%
-      pcp_select(matches("2021")) %>%
-      ggplot(aes_pcp(color=as.factor(Sector))) +xlab("Days") + ylab("SI")+geom_point()+ ggtitle("SI for Sectors ")+theme(plot.title = element_text(size = 20, face="bold"))+
-      scale_colour_manual(name = "Sector",values=c("#999999", "#E69F00", "#56B4E9", "#009E73", "#FFFF00", "#3300CC", "#993300", "#FF00FF","#000000","#FF0000", "#9999CC", "#66FF00")) +
-      geom_pcp()
-
-
-  })
+  # output$Secplot <- renderPlot({
+  #
+  #   files <- list.files("files/SI-data-test/", "Analysis", full.names = T)
+  #   res <- purrr::map(files, foreign::read.dbf) %>%
+  #     tibble(df = ., name = files,dates = ymd(c("2021-05-26", "2021-06-08", "2021-06-14", "2021-06-21", "2021-06-28",
+  #                                               "2021-07-06", "2021-07-19", "2021-07-26", "2021-08-02", "2021-08-10", "2021-08-16", "2021-08-24"))) %>%
+  #     tidyr::unnest(df)
+  #
+  #
+  #
+  #   res %>%
+  #     select(dates,Sector, SI) %>%
+  #     tidyr::pivot_wider(names_from = dates, values_from = SI, values_fn = mean) %>%
+  #     pcp_select(matches("2021")) %>%
+  #     ggplot(aes_pcp(color=as.factor(Sector))) +xlab("Days") + ylab("SI")+geom_point()+ ggtitle("SI for Sectors ")+theme(plot.title = element_text(size = 20, face="bold"))+
+  #     scale_colour_manual(name = "Sector",values=c("#999999", "#E69F00", "#56B4E9", "#009E73", "#FFFF00", "#3300CC", "#993300", "#FF00FF","#000000","#FF0000", "#9999CC", "#66FF00")) +
+  #     geom_pcp()
+  #
+  #
+  # })
 
 
 
