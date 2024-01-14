@@ -13,7 +13,10 @@ library(tmaptools)
 
 
 
+
 ui <- fluidPage(
+
+
 
   tags$head(
     tags$style(
@@ -28,7 +31,13 @@ ui <- fluidPage(
         }
         "
       )
-    )
+    ),
+
+    tags$script(HTML('
+      $(document).ready(function() {
+        $("a[data-value=\'item1\']").click();
+      });
+    '))
   ),
 
 
@@ -58,6 +67,10 @@ ui <- fluidPage(
 
   tabsetPanel(
     type = "hidden",  # Hidden tabs
+
+
+
+
     tabPanel("Tab 1",
 
 
@@ -75,7 +88,7 @@ ui <- fluidPage(
                  div(class = "custom-box",
                      h4("Map Data "),
                      p(sidebarMenu(
-                       menuItem("Field Information", tabName = "item1",selected = TRUE),
+                       menuItem("Field Information", tabName = "item1"),
                        menuItem("Field Nitrogen Treatment", tabName = "item2"),
                        menuItem("Field SI ", tabName = "item3"),
                        menuItem("Yield ", tabName = "item4")
@@ -120,7 +133,7 @@ ui <- fluidPage(
                        downloadButton("downloadData2", "Prescription Map")
 
                        )
-                 ),
+                 )
 
 
 
@@ -131,14 +144,56 @@ ui <- fluidPage(
              ),
 
 
+             # dashboardBody(
+             #   box(width = 8,
+             #       #leafletOutput("Field_map_data"),
+             #
+             #       tabItems(
+             #         tabItem(tabName = "item1",
+             #
+             #                 #leafletOutput("map"),
+             #                 leafletOutput("Field_map_data")
+             #
+             #         ),
+             #
+             #         tabItem(tabName = "item2",
+             #                 leafletOutput("NRxmap"),
+             #                 plotly::plotlyOutput("Nplot")
+             #
+             #         ),
+             #         tabItem(tabName = "item3",
+             #                 leafletOutput("SImap"),
+             #                 #plotOutput(outputId = "Secplot"),
+             #                 plotly::plotlyOutput("SIplot")
+             #
+             #         ),
+             #         tabItem(tabName = "item4",
+             #                 leafletOutput("Yieldmap")
+             #                 #plotOutput(outputId = "Secplot"),
+             #                 #plotly::plotlyOutput("Yieldplot")
+             #
+             #         )
+             #
+             #
+             #       ),
+             #       selected = "item1"
+             #
+             #   ),
+             #
+             #
+             # )
+
+
              dashboardBody(
-               box(width = 8,leafletOutput("Field_map_data"),
+
+
+               box(width = 8,
 
                    tabItems(
                      tabItem(tabName = "item1",
 
                              #leafletOutput("map"),
-                             #leafletOutput("Field_map_data")
+                             leafletOutput("Field_map_data")
 
                      ),
 
@@ -159,14 +214,23 @@ ui <- fluidPage(
                              #plotly::plotlyOutput("Yieldplot")
 
                      )
+                   ),selected = "item1"  # Set the default selected tab
+
+               )
+             )
 
 
-                   ),
-
-               ),
 
 
-             ),
+
+
+
+
+
+
+
+
+
 
 
     )
@@ -183,6 +247,7 @@ server <- function(input, output) {
   mymap <- st_read("data/2023/21_ENREC_BuffTreatmentSectors.shp")
   mydata<-read.csv("data/2023/21_ENREC_BuffTreatmentSectors.csv")
 
+
   str(mymap)
   map_and_data<-inner_join(mymap,mydata)
 
@@ -190,12 +255,13 @@ server <- function(input, output) {
 
 
   Field_map <- tm_shape(map_and_data) +tm_polygons(midpoint = 0,
-                                                   popup.vars = c("Sector No: " = "SECTOR", "Treatment Type: " = "Treatment"))+
-    tm_borders(lwd = 0.5) +
-    tm_layout(
-      frame = FALSE,
-      inner.margins = c(0, 0, 0, 0)
-    )
+    popup.vars = c("Sector No: " = "SECTOR",
+                   "Treatment Type: " = "Treatment"))+
+     tm_borders(lwd = 0.5) +
+     tm_layout(
+       frame = FALSE,
+       inner.margins = c(0, 0, 0, 0)
+     )
   Field_map_data <- tmap_leaflet(Field_map)
 
 
@@ -306,7 +372,10 @@ server <- function(input, output) {
 
   #########################################################################
 
-  # output$Nplot <- renderPlot({
+  # N rate bar plot
+
+
+
   output$Nplot <-  plotly::renderPlotly({
 
     # Create a data frame containing only the necessary columns
@@ -322,13 +391,11 @@ server <- function(input, output) {
       geom_bar(stat = "identity", position = "dodge") +
       labs(
         x = "SECTOR",
-        y = "Nitrogen Rate ()",
+        y = "Nitrogen Rate(kg-N/ha)",
         fill = "Treatment"
       ) +
       ggtitle("Bar Plot of Treatments for Each Sector") +
       theme_minimal()
-
-
 
   })
 
@@ -363,8 +430,6 @@ server <- function(input, output) {
 
 
 
-
-
   # output$Secplot <- renderPlot({
   #
   #   files <- list.files("files/SI-data-test/", "Analysis", full.names = T)
@@ -385,7 +450,6 @@ server <- function(input, output) {
   #
   #
   # })
-
 
 
 }
