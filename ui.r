@@ -456,7 +456,7 @@ server <- function(input, output) {
 
   output$Yieldplot <- plotly::renderPlotly({
     # Create a data frame containing only the necessary columns
-    plot_data_yield <- your_data %>%
+    plot_data_yield <- mydata %>%
       select(SECTOR, Yield, Treatment)
 
     # Create a bar plot with plotly
