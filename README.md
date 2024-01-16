@@ -90,13 +90,13 @@ The application's user-friendly interface empowers many stakeholders, from farme
 
 Figure 1 shows the Data Flow of the Ag Data Application from the very first step to the end.
 
-![Figure 1. The Data Flow of the Ag Data Application](Fig1.png)
+![Figure 1. The Data Flow of the Ag Data Application](ReadmeImg/Fig1.png)
 
 **Data Gathering**
 
 In the dynamic landscape of modern agriculture, the utilization of UAVs (Unmanned Aerial Vehicles) has emerged as a game-changer in data gathering. These versatile flying platforms, commonly known as drones, offer an innovative and efficient means of capturing rich and actionable agricultural data for the Ag Data Visualization web application. Using DJI Matrice 300 Series (Figure 2), UAV is equipped with a multispectral camera to capture Red (R) and Near-Infrared (NIR) bands (enterprise. dji).
 
-![Figure 2. DJI Matrice 300 Séries UAV](Fig2.png)
+![Figure 2. DJI Matrice 300 Séries UAV](ReadmeImg/Fig2.png)
 
 **Data Processing**
 
@@ -112,7 +112,7 @@ The NDRE and SI calculation was done using pix4d and Arc GIS software (Figure 3)
 
 SI is calculated using the formula: SI= (Field NDRE) / (Reference NDRE) And save SI shape files into the shared folder.
 
-![Figure 3. NDRE and SI Calculation Process](Fig3.png)
+![Figure 3. NDRE and SI Calculation Process](ReadmeImg/Fig3.png)
 
 **Data Visualization**
 
@@ -136,7 +136,7 @@ For agricultural applications, where visualizing and analyzing complex data is p
 
 Ag Data Visualization Web Application system architecture is shown in Figure 4.
 
-![Figure 4. System Architecture](Fig4.png)
+![Figure 4. System Architecture](ReadmeImg/Fig4.png)
 
 Using R shiny software, developed the web application to visualize the collected shape files with interactive plots.
 
@@ -146,13 +146,13 @@ The application has two layers that build using R studio
 
 This is the place where any user interacts with the web application. It manages the arrangement and visual design of the application (Figure 5). The UI is responsible for managing the content showcased on the application interface and determining the arrangement of its various elements. This encompasses text, markdown elements, images, interactive user input widgets, and visual representations like plots.
 
-![Figure 5. Shiny ui Code](Fig5.png)
+![Figure 5. Shiny ui Code](ReadmeImg/Fig5.png)
 
 • The server- server.r
 
 The server function contains the instructions needed to build the application. This functions as the backend responsible for processing these input values, generating the eventual output outcomes visible on the website. The information destined for display via the UI falls within the server (Figure 6).
 
-![Figure 6. Shiny Server Code](Fig6.png)
+![Figure 6. Shiny Server Code](ReadmeImg/Fig6.png)
 
 • External Data Repository App
 
@@ -168,25 +168,25 @@ Ag Data Visualization web application developed to visualize the nitrogen treatm
 
 The DATA UI is structured into 4 menues, and the first one shows the field information (Figure 7). In the left corner, the drop down shows the field names (2015,field2,field3). Here in the present, development has been completed only for the 2015 field. The page shows the information related to the field 2015.
 
-![Figure 7. Field Info page](webpage1.png)
+![Figure 7. Field Info page](ReadmeImg/webpage1.png)
 
 • Field Nitrogen Treatment
 
 Here contains N treatment data (Figure 8). The sector map shows the Target amount of N and Applied N rates on the field. Users can select Treatment Date. The sector map shows twelve sectors that have different N treatment rates using a color bar. And the bottom of the page displays the bar plot for N treatment data for each sector. All the information can be displayed sector-wise over the mouse pointer in both plots.
 
-![Figure 8. N treatment page](webpage2.png)
+![Figure 8. N treatment page](ReadmeImg/webpage2.png)
 
 • Field SI Data
 
 The sector-wise SI data is displayed under this tab, and all the information shows over the mouse pointer (Figure 9). And users can select the dates under the select date menu as their preference to see the SI changes on the field on a particular date. The bar plot shows the SI data for each sector on the presented dates.
 
-![Figure 9. SI data Page](webpage3.png)
+![Figure 9. SI data Page](ReadmeImg/webpage3.png)
 
 • Yield Data
 
 The Yield information tab page displays the yield information in each sector.
 
-![Figure 10. Yield data Page](webpage4.png)
+![Figure 10. Yield data Page](ReadmeImg/webpage4.png)
 
 6.  Results and Impact
 
