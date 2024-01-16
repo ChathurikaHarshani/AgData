@@ -64,7 +64,7 @@ tmaptools
 
 plotly
 
-**Shiny App Development Document**
+**Shiny App Deployment Document**
 
 <https://shiny.posit.co/r/articles/share/deployment-web/>
 
