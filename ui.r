@@ -229,7 +229,8 @@ server <- function(input, output) {
 
   output$Field_map_data <- renderLeaflet({
 
-    Field_map_data
+    Field_map_data %>%
+      addProviderTiles("Esri.WorldImagery")
   })
 
   #######################################################################
