@@ -203,11 +203,12 @@ ui <- fluidPage(
 
 
 
-
 server <- function(input, output) {
 
   mymap <- st_read("data/2023/21_ENREC_BuffTreatmentSectors.shp")
   mydata<-read.csv("data/2023/21_ENREC_BuffTreatmentSectors.csv")
+
+
 
 
   str(mymap)
@@ -236,82 +237,100 @@ server <- function(input, output) {
   #######################################################################
 
 
-  # Define a reactive expression to access input$variable
+
+
+
   NRx_tm_map <- reactive({
-    tm_map <- tm_shape(map_and_data) + tm_polygons(
-      col = input$NRx_variable,
-      popup.vars = c("Sector No: " = "SECTOR",
-                     "N rate for date"=input$NRx_variable,
-                     "Treatment Method: " = "Ntreatment",
-                     "N Base Rate: " = "NH3_Base_Rx",
-                     "Applied N Rate:"="Applied_NRate"
-      ),
-      midpoint = 0
-    ) + tm_borders(lwd = 0.5) + tm_layout(
-      frame = FALSE,
-      inner.margins = c(0, 0, 0, 0)
-    )
+    tm_map <- tm_shape(map_and_data) +
+      tm_polygons(
+        col = input$NRx_variable,
+        popup.vars = c(
+          "Sector No: " = "SECTOR",
+          "N rate for date" = input$NRx_variable,
+          "Treatment Method: " = "Ntreatment",
+          "N Base Rate: " = "NH3_Base_Rx",
+          "Applied N Rate:" = "Applied_NRate"
+        ),
+        midpoint = 0
+      ) +
+      tm_borders(lwd = 0.5) +
+      tm_layout(
+        frame = FALSE,
+        inner.margins = c(0, 0, 0, 0)
+      )
     return(tm_map)
   })
 
-
   output$NRxmap <- renderLeaflet({
     tm_map <- NRx_tm_map()
-    tmap_leaflet(tm_map)
+    tmap_leaflet(tm_map)%>%
+      addProviderTiles("Esri.WorldImagery")
   })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
   ############################################################################
 
 
-  # SI Map
+
+
+
   reactive_tm_map <- reactive({
-    tm_map<- tm_shape(map_and_data) + tm_polygons(
-      col = input$SI_variable,
-      popup.vars = c("Sector No: " = "SECTOR",
-                     "SI for date"=input$SI_variable,
-                     "Treatment Method: " = "Ntreatment"
-      ),
-      midpoint = 0
-    ) + tm_borders(lwd = 0.5) + tm_layout(
-      frame = FALSE,
-      inner.margins = c(0, 0, 0, 0)
-    )
+    tm_map <- tm_shape(map_and_data) +
+      tm_polygons(
+        col = input$SI_variable,
+        popup.vars = c(
+          "Sector No: " = "SECTOR",
+          "SI for date" = input$SI_variable,
+          "Treatment Method: " = "Ntreatment"
+        ),
+        midpoint = 0
+      ) +
+      tm_borders(lwd = 0.5) +
+      tm_layout(
+        frame = FALSE,
+        inner.margins = c(0, 0, 0, 0)
+      )
     return(tm_map)
   })
 
   # Create the Leaflet map using the reactive_tm_map
   output$SImap <- renderLeaflet({
-    tm_map<- reactive_tm_map()
-    tmap_leaflet(tm_map)
+    tm_map <- reactive_tm_map()
+    tmap_leaflet(tm_map)%>%
+      addProviderTiles("Esri.WorldImagery")
   })
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   ############################################################################
-
-
-  # Yield Map
-  # Yield_tm_map <- reactive({
-  #   tm_map <- tm_shape(map_and_data) + tm_polygons(
-  #     popup.vars = c("Sector No: " = "SECTOR",
-  #                    "Yield (bu/ac): " = "Yield"),
-  #     midpoint = 0
-  #   ) + tm_borders(lwd = 0.5) + tm_layout(
-  #     frame = FALSE,
-  #     inner.margins = c(0, 0, 0, 0)
-  #   )
-  #   return(tm_map)
-  # })
-  #
-  # # Create the Leaflet map using the reactive_tm_map
-  # output$Yieldmap <- renderLeaflet({
-  #   tm_map <- Yield_tm_map()
-  #   tmap_leaflet(tm_map)
-  # })
-  #
-
-
 
 
 
@@ -323,8 +342,10 @@ server <- function(input, output) {
       palette = "RdBu",  # Choose a color palette (you can change it as needed)
       style = "cont",  # Use continuous color scale
       title = "Yield (bu/ac)",  # Add a title to the legend
-      popup.vars = c("Sector No: " = "SECTOR",
-                     "Yield (bu/ac): " = "Yield"),
+      popup.vars = c(
+        "Sector No: " = "SECTOR",
+        "Yield (bu/ac): " = "Yield"
+      ),
       midpoint = 0
     ) + tm_borders(lwd = 0.5) + tm_layout(
       frame = FALSE,
@@ -336,8 +357,33 @@ server <- function(input, output) {
   # Create the Leaflet map using the reactive_tm_map
   output$Yieldmap <- renderLeaflet({
     tm_map <- Yield_tm_map()
-    tmap_leaflet(tm_map)
+    tmap_leaflet(tm_map)%>%
+      addProviderTiles("Esri.WorldImagery")
   })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
