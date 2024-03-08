@@ -151,7 +151,8 @@ ui <- fluidPage(
 
                              #leafletOutput("map"),
 
-                             leafletOutput("Field_map_data")
+
+                             leafletOutput("Field_map_data",height = "1250px")
 
                      ),
 
