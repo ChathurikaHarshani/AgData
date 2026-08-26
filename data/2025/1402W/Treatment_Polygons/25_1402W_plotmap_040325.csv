@@ -1,0 +1,65 @@
+﻿Field_ID,Rep,Cover_Crop,Plot_Numbe,Treatment,Treat_Numb,Base_rate,sidedress
+1,1,Cover Crop,102,Manure_50,4,50,50
+2,1,Cover Crop,103,Manure_100,6,50,100
+3,1,Cover Crop,106,NH3_150_0,12,150,0
+4,1,Cover Crop,107,NH3_50_100,10,50,100
+5,1,None,110,UAN_50_SBM,15,50,0
+6,1,None,111,NH3_50_SBM,13,50,0
+7,1,None,114,Manure_SBM,7,50,0
+8,1,None,115,Manure_100,5,50,100
+9,2,None,204,UAN_50_SBM,15,50,0
+10,2,None,205,Manure_SBM,7,50,0
+11,2,Cover Crop,212,NH3_150_0,12,150,0
+12,2,Cover Crop,213,Manure_50,4,50,50
+13,3,Cover Crop,304,Manure_100,6,50,100
+14,3,Cover Crop,305,UAN_50_SBM,16,50,0
+15,3,None,312,Manure_Check,1,0,0
+16,3,None,313,NH3_150_0,11,150,0
+17,4,None,404,Manure_SBM,7,50,0
+18,4,None,405,UAN_50_SBM,15,50,0
+19,4,Cover Crop,412,NH3_50_SBM,14,50,0
+20,4,Cover Crop,413,Manure_100,6,50,100
+21,2,None,201,NH3_50_SBM,13,50,0
+22,2,None,208,Manure_50,3,50,50
+23,2,Cover Crop,209,NH3_50_100,10,50,100
+24,2,Cover Crop,216,Manure_Check,2,0,0
+25,3,Cover Crop,301,Manure_50,4,50,50
+26,3,Cover Crop,308,NH3_50_SBM,14,50,0
+27,3,None,309,Manure_SBM,7,50,0
+28,3,None,316,UAN_50_SBM,15,50,0
+29,4,None,401,Manure_100,5,50,100
+30,4,None,408,NH3_50_SBM,13,50,0
+31,4,Cover Crop,409,NH3_50_100,10,50,100
+32,4,Cover Crop,416,Manure_Check,2,0,0
+33,2,None,202,NH3_50_100,9,50,100
+34,2,None,207,Manure_100,5,50,100
+35,2,Cover Crop,210,NH3_50_SBM,14,50,0
+36,2,Cover Crop,215,Manure_SBM,8,50,0
+37,3,Cover Crop,302,Manure_Check,2,0,0
+38,3,Cover Crop,307,NH3_50_100,10,50,100
+39,3,None,310,Manure_50,3,50,50
+40,3,None,315,NH3_50_100,9,50,100
+41,4,None,402,Manure_50,3,50,50
+42,4,None,407,NH3_150_0,11,150,0
+43,4,Cover Crop,410,NH3_150_0,12,150,0
+44,4,Cover Crop,415,Manure_SBM,8,50,0
+45,1,Cover Crop,101,Manure_SBM,8,50,0
+46,1,Cover Crop,104,Manure_Check,2,0,0
+47,1,Cover Crop,105,NH3_50_SBM,14,50,0
+48,1,Cover Crop,108,UAN_50_SBM,16,50,0
+49,1,None,109,NH3_150_0,11,150,0
+50,1,None,112,NH3_50_100,9,50,100
+51,1,None,113,Manure_Check,1,0,0
+52,1,None,116,Manure_50,3,50,50
+53,2,None,203,NH3_150_0,11,150,0
+54,2,None,206,Manure_Check,1,0,0
+55,2,Cover Crop,211,UAN_50_SBM,16,50,0
+56,2,Cover Crop,214,Manure_100,6,50,100
+57,3,Cover Crop,303,Manure_SBM,8,50,0
+58,3,Cover Crop,306,NH3_150_0,12,150,0
+59,3,None,311,Manure_100,5,50,100
+60,3,None,314,NH3_50_SBM,13,50,0
+61,4,None,403,Manure_Check,1,0,0
+62,4,None,406,NH3_50_100,9,50,100
+63,4,Cover Crop,411,UAN_50_SBM,16,50,0
+64,4,Cover Crop,414,Manure_50,4,50,50

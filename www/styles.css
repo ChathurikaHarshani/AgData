@@ -1,0 +1,2168 @@
+:root{
+  --topbar-h: 0px;         /* no red banner */
+  --sidebar-w: 300px;
+  --font-sans: "Segoe UI Variable", "Segoe UI", Inter, system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+
+  --bg: #f4f6f8;
+  --panel: rgba(255,255,255,.78);
+  --panel-solid: #ffffff;
+  --text: #111827;
+  --muted: #6b7280;
+
+  --border: rgba(17,24,39,0.10);
+  --shadow: 0 10px 30px rgba(0,0,0,.08);
+  --shadow-sm: 0 6px 18px rgba(0,0,0,.08);
+
+  --radius: 18px;
+  --radius-sm: 12px;
+
+  --accent: #2E7D32;
+  --accent-2: #C6FF00;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* One typography system across Shiny, Bootstrap, maps, charts, and dialogs. */
+button,
+input,
+select,
+textarea,
+.btn,
+.form-control,
+.selectize-input,
+.selectize-dropdown,
+.nav,
+.modal,
+.popover,
+.tooltip,
+.leaflet-container,
+.leaflet-control,
+.leaflet-popup-content,
+.dataTables_wrapper{
+  font-family: var(--font-sans) !important;
+}
+h1, h2, h3, h4, h5, h6,
+.sidebar-title,
+.ns-tile-title,
+.modal-title,
+.nav-tabs > li > a{
+  font-family: var(--font-sans) !important;
+  letter-spacing: normal;
+}
+.plotly text,
+.js-plotly-plot text{
+  font-family: var(--font-sans) !important;
+}
+.container-fluid { padding-left: 0 !important; padding-right: 0 !important; }
+.row { margin-left: 0 !important; margin-right: 0 !important; }
+
+
+
+/* Right side scroll */
+.right-scroll{
+  position: fixed;
+  top: var(--topbar-h);
+  left: var(--sidebar-w);
+  right: 0;
+  height: calc(100vh - var(--topbar-h));
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 16px;
+  box-sizing: border-box;
+  background: var(--bg);
+}
+
+/* Card look (clean, rounded) */
+.custom-box{
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+  margin: 0 0 12px 0;
+  background: rgba(255,255,255,.92);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Map hero container + overlay cards */
+.map-hero{
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  background: #fff;
+  margin-bottom: 14px;
+}
+
+.map-overlay{
+  position: absolute;
+  top: 14px;
+  left: 14px;   /* place cards like the reference */
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  z-index: 900;
+  max-width: 560px;
+}
+
+.metric-card{
+  background: rgba(255,255,255,.88);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 10px 14px;
+  box-shadow: var(--shadow-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 160px;
+}
+
+.metric-dot{
+  width: 10px; height: 10px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.metric-label{
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.1;
+}
+.metric-value{
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+/* Make tabs pill style */
+.nav-tabs{ border-bottom: none !important; gap: 8px; margin-bottom: 10px; }
+.nav-tabs > li > a{
+  border: 1px solid var(--border) !important;
+  border-radius: 999px !important;
+  padding: 8px 14px !important;
+  color: var(--text) !important;
+  background: rgba(255,255,255,.8) !important;
+}
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover{
+  background: rgba(198,255,0,.35) !important;
+  border-color: rgba(198,255,0,.55) !important;
+  font-weight: 800;
+}
+
+/* Leaflet legend: glass + not colliding with overlay */
+.leaflet-top.leaflet-right{
+  top: 14px !important;
+  right: 14px !important;
+}
+.leaflet-top.leaflet-right .leaflet-control{
+  margin-top: 82px !important; /* pushes legend below your pills */
+}
+
+.leaflet-control{
+  background: rgba(255,255,255,.88) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0,0,0,.10) !important;
+  box-shadow: 0 6px 18px rgba(0,0,0,.08) !important;
+  border-radius: 12px !important;
+}
+
+/* Make map output fill card */
+.right-scroll .leaflet-container,
+.right-scroll .plotly,
+.right-scroll .shiny-plot-output,
+.right-scroll .shiny-html-output{ width: 100% !important; }
+
+
+.sidebar-section{
+  background: rgba(255,255,255,.92);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-sm);
+}
+
+.sidebar-title{
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.sidebar-divider{
+  height: 1px;
+  background: rgba(17,24,39,0.08);
+  margin: 10px 0 12px 0;
+}
+
+.app-logo-xl{
+  height: 150px;
+  margin: 20px auto 25px auto;
+  display: block;
+}
+
+/* ===== Sidebar theme (Harvesta-like) ===== */
+.left-panel{
+  background: linear-gradient(180deg, rgba(243,248,242,.95) 0%, rgba(255,255,255,.85) 100%) !important;
+  border-right: 1px solid rgba(46,125,50,.18) !important;
+}
+
+/* Logo block looks like a brand header */
+.logo-card{
+  background: rgba(255,255,255,.9);
+  border: 1px solid rgba(46,125,50,.18);
+  border-radius: 18px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.06);
+  padding: 14px;
+  margin-bottom: 14px;
+}
+
+/* Sidebar sections */
+.sidebar-section{
+  background: rgba(255,255,255,.92);
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 18px;
+  box-shadow: 0 10px 22px rgba(0,0,0,.06);
+  padding: 14px;
+  margin-bottom: 14px;
+}
+
+/* Section titles */
+.sidebar-title{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  font-weight: 900;
+  letter-spacing: .4px;
+  margin-bottom: 10px;
+}
+.sidebar-badge{
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(198,255,0,.35);
+  border: 1px solid rgba(198,255,0,.55);
+}
+
+/* Inputs spacing */
+.left-panel .form-group{ margin-bottom: 10px; }
+.left-panel label.control-label{
+  font-size: 12px;
+  font-weight: 800;
+  color: rgba(17,24,39,.75);
+}
+
+/* Dropdowns */
+.left-panel .selectize-input{
+  border-radius: 12px !important;
+  border: 1px solid rgba(0,0,0,.10) !important;
+  box-shadow: none !important;
+}
+
+/* Radio button list styled like a menu */
+.left-panel .radio{
+  margin-top: 8px;
+}
+.left-panel .radio label{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  transition: all .15s ease;
+  font-weight: 700;
+  color: #1f2937;
+}
+.left-panel .radio label:hover{
+  background: rgba(46,125,50,.08);
+  border-color: rgba(46,125,50,.12);
+}
+
+/* Hide default radio circle and create modern dot */
+.left-panel input[type='radio']{
+  accent-color: #2E7D32;
+  transform: scale(1.05);
+}
+
+/* Make selected radio row highlighted (pure CSS trick) */
+.left-panel .radio input[type='radio']:checked + span{
+  color: #0f172a;
+}
+
+/* Add a left active bar look */
+.left-panel .radio label:has(input[type='radio']:checked){
+  background: rgba(198,255,0,.25);
+  border-color: rgba(198,255,0,.55);
+  box-shadow: 0 8px 18px rgba(0,0,0,.06);
+}
+
+/* Buttons in Learn more */
+.left-panel .btn{
+  border-radius: 14px !important;
+  border: 1px solid rgba(0,0,0,.10) !important;
+  background: rgba(255,255,255,.92) !important;
+  font-weight: 800 !important;
+}
+.left-panel .btn:hover{
+  background: rgba(46,125,50,.08) !important;
+  border-color: rgba(46,125,50,.18) !important;
+}
+
+/* Small divider line */
+.sidebar-divider{
+  height: 1px;
+  background: rgba(17,24,39,.08);
+  margin: 10px 0 12px 0;
+}
+
+
+.logo-container-vertical{
+  text-align:center;
+}
+.app-logo-large{
+  height: 150px;
+  width: auto;
+  display:block;
+  margin: 0 auto 8px auto;
+}
+.logo-text-large{
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: #1f2937;
+}
+
+
+
+/* ===== Full-screen map + bottom drawer layout ===== */
+:root{
+  --drawer-collapsed: 56px;     /* height when collapsed (tab bar visible) */
+  --drawer-expanded: 42vh;      /* how tall when expanded */
+  --gap: 14px;
+}
+
+/* Right side becomes a fixed viewport (no scrolling) */
+.right-scroll{
+  overflow: hidden !important;   /* ✅ remove scroll */
+  padding: 16px !important;
+}
+
+/* Container that fills available height */
+.ns-stage{
+  position: relative;
+  height: calc(100vh - var(--topbar-h));
+}
+
+/* Map takes full height minus drawer collapsed height */
+.ns-map-wrap{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--drawer-collapsed) + var(--gap));
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  background: #fff;
+}
+
+/* Force leaflet to fill its parent (instead of fixed px heights) */
+.ns-map-wrap .leaflet-container{
+  height: 100% !important;
+  width: 100% !important;
+}
+
+/* Bottom drawer */
+.ns-drawer{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  height: var(--drawer-collapsed);
+  border-radius: 18px;
+  background: rgba(255,255,255,.96);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0,0,0,.10);
+  box-shadow: 0 16px 40px rgba(0,0,0,.12);
+
+  overflow: hidden;
+  transition: height .22s ease;
+}
+
+/* Expanded state */
+.ns-drawer.open{
+  height: var(--drawer-expanded);
+}
+
+/* Drawer header / handle */
+.ns-drawer-head{
+  height: var(--drawer-collapsed);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(0,0,0,.08);
+}
+
+.ns-handle{
+  width: 48px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(17,24,39,.20);
+  margin: 0 auto;
+}
+
+.ns-drawer-btn{
+  border: 1px solid rgba(0,0,0,.10);
+  background: rgba(255,255,255,.88);
+  border-radius: 12px;
+  padding: 6px 10px;
+  font-weight: 800;
+}
+
+/* Drawer body scrolls internally (not the page) */
+.ns-drawer-body{
+  height: calc(100% - var(--drawer-collapsed));
+  overflow-y: auto;
+  padding: 12px;
+  background: rgba(255,255,255,.96);
+}
+
+/* Pills tabs in drawer */
+.ns-drawer .nav-tabs{ margin-bottom: 12px !important; }
+
+/* Make plots responsive */
+.ns-drawer-body .plotly,
+.ns-drawer-body .shiny-plot-output{
+  width: 100% !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ===== Harvesta-like left sidebar ===== */
+:root{
+  --sb-bg: #eef0e6;        /* warm light */
+  --sb-card: rgba(255,255,255,.82);
+  --sb-border: rgba(0,0,0,.06);
+  --sb-text: #1f2937;
+  --sb-muted: rgba(31,41,55,.65);
+  --sb-active: rgba(198,255,0,.30);
+  --sb-active-border: rgba(198,255,0,.55);
+}
+
+/* Sidebar container */
+.left-panel{
+  background: var(--sb-bg) !important;
+  border-right: 1px solid rgba(0,0,0,.06) !important;
+  padding: 18px 16px !important;
+  font-family: var(--font-sans);
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(46,125,50,.24) transparent;
+}
+
+/* Logo card */
+.logo-card{
+  background: rgba(255,255,255,.70) !important;
+  border: 1px solid var(--sb-border) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 14px 30px rgba(0,0,0,.06) !important;
+  padding: 18px !important;
+}
+
+/* Section card */
+.sidebar-section{
+  background: var(--sb-card) !important;
+  border: 1px solid var(--sb-border) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 14px 30px rgba(0,0,0,.06) !important;
+  padding: 16px !important;
+  margin-bottom: 16px !important;
+}
+
+/* Section title + badge */
+.sidebar-title{
+  font-size: 15px !important;
+  font-weight: 900 !important;
+  letter-spacing: .3px !important;
+  color: var(--sb-text) !important;
+  margin-bottom: 12px !important;
+}
+.sidebar-badge{
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  padding: 5px 12px !important;
+  border-radius: 999px !important;
+  background: rgba(0,0,0,.06) !important;
+  border: 1px solid rgba(0,0,0,.06) !important;
+}
+
+/* Labels above dropdowns */
+.left-panel label.control-label{
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  color: var(--sb-muted) !important;
+  margin-bottom: 6px !important;
+}
+
+/* Dropdown styling */
+.left-panel .selectize-input{
+  border-radius: 16px !important;
+  border: 1px solid rgba(0,0,0,.10) !important;
+  padding: 10px 12px !important;
+  font-size: 14px !important;
+  box-shadow: none !important;
+}
+
+/* ===== Menu (radio) = Harvesta pill rows ===== */
+.left-panel .radio{
+  margin-top: 10px !important;
+}
+
+.left-panel .radio label{
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  padding: 12px 12px !important;
+  border-radius: 18px !important;
+  border: 1px solid transparent !important;
+  background: transparent !important;
+  cursor: pointer !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;   /* ✅ bigger menu text */
+  color: var(--sb-text) !important;
+  transition: all .15s ease;
+}
+
+/* Icon bubble (works when you add icon() in choiceNames) */
+.left-panel .radio label i{
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,.06);
+  color: rgba(31,41,55,.85);
+  font-size: 16px;
+}
+
+/* Hover */
+.left-panel .radio label:hover{
+  background: rgba(0,0,0,.04) !important;
+  border-color: rgba(0,0,0,.06) !important;
+}
+
+/* Hide default radio circle */
+.left-panel .radio input[type='radio']{
+  display: none !important;
+}
+
+/* Active item highlight */
+.left-panel .radio label:has(input[type='radio']:checked){
+  background: var(--sb-active) !important;
+  border-color: var(--sb-active-border) !important;
+  box-shadow: 0 10px 22px rgba(0,0,0,.06) !important;
+}
+
+/* Active icon bubble */
+.left-panel .radio label:has(input[type='radio']:checked) i{
+  background: rgba(255,255,255,.75);
+  border: 1px solid rgba(0,0,0,.06);
+}
+
+/* Learn more buttons */
+.left-panel .btn{
+  border-radius: 16px !important;
+  padding: 10px 12px !important;
+  font-weight: 800 !important;
+  font-size: 14px !important;
+  background: rgba(255,255,255,.82) !important;
+  border: 1px solid rgba(0,0,0,.10) !important;
+}
+.left-panel .btn:hover{
+  background: rgba(0,0,0,.04) !important;
+}
+
+
+
+/* =========================
+   Collapsible sidebar
+========================= */
+.sidebar-wrap{
+  position: fixed;
+  top: var(--topbar-h);
+  left: 0;
+  width: var(--sidebar-w);
+  height: calc(100vh - var(--topbar-h));
+  z-index: 1000;
+}
+
+html.ns-sidebar-collapsed{
+  --sidebar-w: 0px;
+}
+html.ns-sidebar-collapsed #nsSidebarWrap{
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Smooth transition */
+.right-scroll{
+  transition: left 0.25s ease, width 0.25s ease;
+  min-height: 0;
+}
+
+/* Toggle button */
+.ns-sidebar-toggle{
+  position: sticky;
+  top: 10px;
+  z-index: 9999;
+  border-radius: 12px;
+  font-weight: 800;
+}
+
+/* =========================
+   2x2 dashboard tiles
+========================= */
+.ns-grid-2x2{
+  height: calc(100vh - var(--topbar-h) - 144px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 14px;
+  min-height: 0;
+}
+
+/* =========================
+   Page context header
+========================= */
+.ns-page-header{
+  min-height: 104px;
+  margin: 0 0 14px 0;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: 0 4px 14px rgba(17,24,39,.06);
+}
+
+.ns-page-heading{ min-width: 0; }
+.ns-eyebrow{
+  margin-bottom: 3px;
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+.ns-page-heading h1{
+  margin: 0;
+  color: #17211a;
+  font-size: clamp(23px, 2vw, 30px);
+  font-weight: 750;
+  line-height: 1.15;
+}
+.ns-page-heading p{
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+.ns-context-chips{
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  flex: 0 0 auto;
+}
+.ns-context-chip{
+  min-width: 142px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f5f8f3;
+  border: 1px solid rgba(46,125,50,.14);
+  border-radius: 12px;
+}
+.ns-context-chip > i{
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  background: rgba(46,125,50,.10);
+  border-radius: 9px;
+}
+.ns-context-chip span{
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.2;
+}
+.ns-context-chip strong{
+  display: block;
+  margin-top: 2px;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+@media (max-width: 1050px){
+  .ns-page-header{ align-items: flex-start; }
+  .ns-page-heading p{ display: none; }
+  .ns-context-chip{ min-width: 125px; }
+}
+
+/* =========================
+   Loading state
+========================= */
+.ns-loading-panel{
+  min-height: 92px;
+  margin: 0 0 14px 0;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: var(--text);
+  background: linear-gradient(100deg, #f6faf4 0%, #ffffff 72%);
+  border: 1px solid rgba(46,125,50,.18);
+  border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(17,24,39,.05);
+}
+.ns-loading-visual{
+  position: relative;
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  display: grid;
+  place-items: center;
+}
+.ns-loading-spinner{
+  position: absolute;
+  inset: 0;
+  border: 3px solid rgba(46,125,50,.14);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: ns-spin .9s linear infinite;
+}
+.ns-loading-icon{
+  color: var(--accent);
+  font-size: 17px;
+}
+.ns-loading-copy{
+  min-width: 0;
+  flex: 1 1 auto;
+}
+.ns-loading-copy strong{
+  display: block;
+  margin-bottom: 4px;
+  color: #17211a;
+  font-size: 16px;
+  line-height: 1.3;
+}
+.ns-loading-copy span{
+  display: block;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+.ns-loading-status{
+  padding: 7px 11px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  flex: 0 0 auto;
+  color: #285d2b;
+  background: rgba(46,125,50,.08);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 750;
+}
+.ns-pulse-dot{
+  width: 7px;
+  height: 7px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: ns-pulse 1.3s ease-in-out infinite;
+}
+@keyframes ns-spin{ to{ transform: rotate(360deg); } }
+@keyframes ns-pulse{
+  0%, 100%{ opacity: .35; transform: scale(.85); }
+  50%{ opacity: 1; transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce){
+  .ns-loading-spinner, .ns-pulse-dot{ animation: none; }
+}
+@media (max-width: 760px){
+  .ns-loading-status{ display: none; }
+  .ns-loading-copy span{ font-size: 12px; }
+}
+
+/* =========================
+   Sidebar workflow
+========================= */
+.ns-selection-card .sidebar-title{ margin-bottom: 14px !important; }
+.ns-sidebar-step{
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr);
+  align-items: start;
+  gap: 9px;
+}
+.ns-sidebar-step + .ns-sidebar-step{ margin-top: 2px; }
+.ns-step-number{
+  width: 24px;
+  height: 24px;
+  margin-top: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: var(--accent);
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 800;
+}
+.ns-step-content{ min-width: 0; }
+.ns-step-content .form-group{ margin-bottom: 10px !important; }
+.ns-selection-card .sidebar-note{
+  margin: 2px 0 0 35px;
+  line-height: 1.45;
+}
+.ns-report-note{ margin: -3px 0 12px !important; line-height: 1.45; }
+.left-panel .btn.ns-primary-action{
+  width: 100%;
+  color: #fff !important;
+  background: var(--accent) !important;
+  border-color: var(--accent) !important;
+  box-shadow: 0 6px 14px rgba(46,125,50,.18) !important;
+}
+.left-panel .btn.ns-primary-action:hover,
+.left-panel .btn.ns-primary-action:focus{
+  color: #fff !important;
+  background: #256b29 !important;
+  border-color: #256b29 !important;
+}
+.ns-help-links{
+  display: grid;
+  gap: 7px;
+}
+.ns-help-links .btn{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 10px !important;
+  color: #34403a !important;
+  text-align: left;
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+.ns-help-links .btn:hover,
+.ns-help-links .btn:focus{
+  color: #1f5123 !important;
+  background: rgba(46,125,50,.07) !important;
+  border-color: rgba(46,125,50,.10) !important;
+}
+
+/* =========================
+   Consistent map-card headers
+========================= */
+.ns-tile-title{
+  top: 10px !important;
+  left: 12px !important;
+  max-width: calc(100% - 68px);
+  min-height: 42px;
+  padding: 7px 11px 7px 8px !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+  background: rgba(255,255,255,.94) !important;
+  border: 1px solid rgba(17,24,39,.11) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 12px rgba(17,24,39,.10);
+  backdrop-filter: blur(8px);
+}
+.ns-tile-icon{
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 28px;
+  color: var(--accent);
+  background: rgba(46,125,50,.10);
+  border-radius: 8px;
+}
+.ns-tile-title strong{
+  display: block;
+  overflow: hidden;
+  color: #17211a;
+  font-size: 13px;
+  font-weight: 750;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ns-tile-title small{
+  display: block;
+  margin-top: 2px;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ns-max-btn .btn{
+  width: 38px;
+  height: 38px;
+  padding: 0 !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #314038;
+  background: rgba(255,255,255,.94) !important;
+  border: 1px solid rgba(17,24,39,.11) !important;
+  border-radius: 11px !important;
+  box-shadow: 0 4px 12px rgba(17,24,39,.10);
+}
+.ns-max-btn .btn:hover,
+.ns-max-btn .btn:focus{
+  color: var(--accent);
+  background: #fff !important;
+  border-color: rgba(46,125,50,.28) !important;
+}
+.ns-map-overlay{ top: 64px !important; }
+
+/* =========================
+   Analysis drawers
+========================= */
+.ns-tile-drawer{
+  background: rgba(255,255,255,.97) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 6px 18px rgba(17,24,39,.12) !important;
+}
+.ns-tile-drawer-head{
+  padding: 7px 9px 7px 12px !important;
+  border-top: 0 !important;
+}
+.ns-analysis-label{
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #26352d;
+  font-size: 12px;
+  font-weight: 750;
+}
+.ns-analysis-label i{ color: var(--accent); }
+.ns-mini-btn{
+  padding: 7px 10px !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #285d2b !important;
+  background: rgba(46,125,50,.08) !important;
+  border-color: rgba(46,125,50,.12) !important;
+  font-size: 12px !important;
+}
+.ns-mini-btn i{ transition: transform .2s ease; }
+.ns-tile-drawer.is-open .ns-mini-btn i{ transform: rotate(180deg); }
+
+/* Keep charts mounted while collapsed so opening the drawer is immediate. */
+.ns-tile-drawer .ns-tile-drawer-body{
+  display: block !important;
+  visibility: visible;
+}
+.ns-tile-drawer.is-open{
+  border-color: rgba(46,125,50,.22) !important;
+  box-shadow: 0 12px 28px rgba(17,24,39,.16) !important;
+}
+
+/* =========================
+   Empty state
+========================= */
+.ns-empty-state{
+  min-height: min(470px, calc(100vh - 280px));
+  padding: clamp(30px, 5vw, 64px);
+  display: grid;
+  grid-template-columns: minmax(180px, 300px) minmax(320px, 560px);
+  align-items: center;
+  justify-content: center;
+  gap: clamp(34px, 6vw, 80px);
+  background: linear-gradient(135deg, #fbfcfa 0%, #f3f8f0 100%);
+  border: 1px solid rgba(46,125,50,.13);
+  border-radius: 18px;
+  overflow: hidden;
+}
+.ns-empty-illustration{
+  position: relative;
+  width: min(250px, 100%);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  margin: auto;
+}
+.ns-empty-ring{
+  position: absolute;
+  border: 1px solid rgba(46,125,50,.16);
+  border-radius: 50%;
+}
+.ns-ring-one{ inset: 8%; background: rgba(255,255,255,.55); }
+.ns-ring-two{ inset: 25%; border-style: dashed; }
+.ns-empty-icon{
+  position: relative;
+  width: 82px;
+  height: 82px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: linear-gradient(145deg, #3e9143, #236627);
+  border-radius: 24px;
+  box-shadow: 0 18px 36px rgba(46,125,50,.23);
+  font-size: 31px;
+  transform: rotate(-3deg);
+}
+.ns-empty-copy h2{
+  margin: 0;
+  color: #17211a;
+  font-size: clamp(25px, 3vw, 34px);
+  font-weight: 750;
+  line-height: 1.18;
+}
+.ns-empty-copy > p{
+  max-width: 520px;
+  margin: 12px 0 24px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.65;
+}
+.ns-empty-steps{ display: grid; gap: 10px; }
+.ns-empty-step{
+  padding: 10px 12px;
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,.72);
+  border: 1px solid rgba(17,24,39,.07);
+  border-radius: 12px;
+}
+.ns-empty-step > span{
+  width: 27px;
+  height: 27px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: var(--accent);
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 800;
+}
+.ns-empty-step strong{
+  display: block;
+  color: #27352d;
+  font-size: 13px;
+}
+.ns-empty-step small{
+  display: block;
+  margin-top: 1px;
+  color: var(--muted);
+  font-size: 11px;
+}
+@media (max-width: 900px){
+  .ns-empty-state{
+    grid-template-columns: 1fr;
+    gap: 24px;
+    text-align: center;
+  }
+  .ns-empty-illustration{ width: 160px; }
+  .ns-empty-copy > p{ margin-left: auto; margin-right: auto; }
+  .ns-empty-step{ text-align: left; }
+}
+
+/* =========================
+   Responsive application shell
+========================= */
+@media (max-width: 1180px){
+  .right-scroll{
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+  }
+  .ns-grid-2x2{
+    height: auto !important;
+    min-height: 0;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+    grid-auto-rows: minmax(500px, 62vh);
+    padding-bottom: 16px;
+  }
+  .ns-tile{ min-height: 500px; }
+  .ns-page-header{
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+}
+
+@media (max-width: 760px){
+  :root{ --sidebar-w: 0px; }
+  .right-scroll{
+    left: 0 !important;
+    padding: 10px !important;
+  }
+  .sidebar-wrap{
+    width: min(320px, 88vw);
+    z-index: 12000;
+    box-shadow: 18px 0 42px rgba(17,24,39,.18);
+  }
+  html:not(.ns-sidebar-collapsed) #nsSidebarWrap{
+    display: block !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+  .ns-sidebar-toggle{
+    position: fixed !important;
+    top: 10px;
+    left: 10px;
+    z-index: 13000;
+    width: 40px;
+    height: 40px;
+    padding: 0 !important;
+  }
+  html:not(.ns-sidebar-collapsed) .ns-sidebar-toggle{ left: min(330px, 90vw); }
+  .ns-page-header{
+    min-height: 0;
+    padding: 58px 16px 16px;
+    display: block;
+  }
+  .ns-page-heading h1{ font-size: 24px; }
+  .ns-page-heading p{ display: block; font-size: 12px; }
+  .ns-context-chips{
+    margin-top: 14px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .ns-context-chip{ min-width: 0; padding: 8px; }
+  .ns-context-chip > i{ display: none; }
+  .ns-loading-panel{ padding: 14px; }
+  .ns-loading-visual{ width: 40px; height: 40px; flex-basis: 40px; }
+  .ns-loading-copy strong{ font-size: 14px; }
+  .ns-empty-state{
+    min-height: 0;
+    padding: 28px 18px;
+  }
+  .ns-empty-illustration{ width: 120px; }
+  .ns-empty-icon{ width: 62px; height: 62px; font-size: 24px; }
+  .ns-grid-2x2{
+    gap: 10px;
+    grid-auto-rows: minmax(460px, 72vh);
+  }
+  .ns-tile{ min-height: 460px; border-radius: 14px; }
+  .ns-tile-title small{ display: none; }
+  .ns-map-overlay{
+    top: 60px !important;
+    right: 8px !important;
+    max-width: calc(100% - 16px);
+  }
+}
+
+@media (max-width: 420px){
+  .ns-context-chips{ grid-template-columns: 1fr; }
+  .ns-tile-title{ max-width: calc(100% - 60px); }
+  .ns-analysis-label{ font-size: 11px; }
+}
+
+/* =========================
+   Keyboard accessibility
+========================= */
+.ns-skip-link{
+  position: fixed;
+  top: 8px;
+  left: 50%;
+  z-index: 20000;
+  padding: 9px 14px;
+  color: #fff;
+  background: #153f18;
+  border-radius: 8px;
+  font-weight: 700;
+  transform: translate(-50%, -150%);
+  transition: transform .15s ease;
+}
+.ns-skip-link:focus{
+  color: #fff;
+  transform: translate(-50%, 0);
+}
+button:focus-visible,
+.btn:focus-visible,
+a:focus-visible,
+[tabindex]:focus-visible,
+.selectize-input.focus{
+  outline: 3px solid rgba(37,99,235,.72) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 5px rgba(37,99,235,.13) !important;
+}
+.nav-tabs > li > a:focus-visible{
+  border-color: #2563eb !important;
+}
+.leaflet-control a:focus-visible{
+  position: relative;
+  z-index: 2;
+  outline-offset: -2px !important;
+}
+@media (forced-colors: active){
+  button:focus-visible,
+  .btn:focus-visible,
+  a:focus-visible,
+  [tabindex]:focus-visible{ outline: 3px solid CanvasText !important; }
+}
+
+/* =========================
+   Summary report modal
+========================= */
+.modal-backdrop.in{ opacity: .42; }
+.modal-dialog{ width: min(1120px, calc(100vw - 32px)) !important; }
+.modal-content{
+  overflow: hidden;
+  border: 0 !important;
+  border-radius: 18px !important;
+  box-shadow: 0 24px 70px rgba(17,24,39,.24) !important;
+}
+.modal-header{
+  min-height: 72px;
+  padding: 14px 18px !important;
+  display: flex;
+  align-items: center;
+  color: var(--text);
+  background: linear-gradient(100deg, #f4f9f2, #fff);
+  border-bottom: 1px solid rgba(46,125,50,.13) !important;
+}
+.modal-header .close{
+  margin-left: auto;
+  padding: 8px 11px;
+  color: #4b5563;
+  background: rgba(17,24,39,.05);
+  border-radius: 9px;
+  opacity: 1;
+}
+.modal-title{ flex: 1; min-width: 0; }
+.ns-summary-title{
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+.ns-summary-title-icon{
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 38px;
+  color: var(--accent);
+  background: rgba(46,125,50,.10);
+  border-radius: 10px;
+}
+.ns-summary-title strong{
+  display: block;
+  color: #17211a;
+  font-size: 17px;
+  font-weight: 750;
+  line-height: 1.2;
+}
+.ns-summary-title small{
+  display: block;
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 500;
+}
+.modal-body{
+  max-height: calc(100vh - 190px);
+  padding: 18px !important;
+  overflow: auto;
+  background: #fff;
+}
+.modal-footer{
+  padding: 10px 18px !important;
+  background: #f8faf8;
+  border-top: 1px solid var(--border) !important;
+}
+.modal-footer .btn-default{
+  padding: 8px 16px;
+  color: #fff;
+  background: var(--accent);
+  border-color: var(--accent);
+  border-radius: 10px;
+  font-weight: 700;
+}
+
+/* DataTables controls and report table. */
+.dataTables_wrapper{ color: var(--text); }
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter{ margin-bottom: 12px; color: var(--muted); }
+.dataTables_wrapper .dataTables_filter input,
+.dataTables_wrapper .dataTables_length select{
+  height: 36px;
+  margin-left: 6px;
+  padding: 6px 9px;
+  background: #fff;
+  border: 1px solid rgba(17,24,39,.16);
+  border-radius: 9px;
+}
+table.dataTable{
+  width: 100% !important;
+  border-collapse: separate !important;
+  border-spacing: 0;
+  border: 1px solid rgba(17,24,39,.09) !important;
+  border-radius: 11px;
+  overflow: hidden;
+}
+table.dataTable thead th{
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding: 11px 10px !important;
+  color: #34403a;
+  background: #f1f6ef !important;
+  border-bottom: 1px solid rgba(46,125,50,.18) !important;
+  font-size: 12px;
+  font-weight: 750;
+  white-space: nowrap;
+}
+table.dataTable tbody td{
+  padding: 10px !important;
+  border-top: 1px solid rgba(17,24,39,.06) !important;
+  font-size: 12px;
+  vertical-align: middle;
+}
+table.dataTable.stripe tbody tr.odd,
+table.dataTable.display tbody tr.odd{ background: #fafcfa; }
+table.dataTable.hover tbody tr:hover,
+table.dataTable.display tbody tr:hover{ background: #f0f7ed !important; }
+.dataTables_wrapper .dataTables_info{ color: var(--muted); font-size: 12px; }
+.dataTables_wrapper .dataTables_paginate .paginate_button{
+  min-width: 34px;
+  padding: 6px 9px !important;
+  border: 0 !important;
+  border-radius: 8px !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current{
+  color: #fff !important;
+  background: var(--accent) !important;
+}
+@media (max-width: 600px){
+  .modal-dialog{ width: calc(100vw - 16px) !important; margin: 8px auto; }
+  .modal-body{ max-height: calc(100vh - 155px); padding: 12px !important; }
+  .dataTables_wrapper .dataTables_filter{ float: none; text-align: left; }
+}
+
+/* =========================
+   Leaflet legends and popups
+========================= */
+.leaflet-control{
+  color: var(--text) !important;
+  font-size: 11px !important;
+  line-height: 1.4 !important;
+}
+.leaflet-control-layers,
+.leaflet-control-layers-expanded,
+.leaflet-control-scale,
+.leaflet-control-attribution{
+  border-radius: 10px !important;
+}
+.leaflet-control-layers-expanded{ padding: 9px 11px !important; }
+.leaflet-control-layers label{
+  margin: 3px 0;
+  font-weight: 500;
+}
+.leaflet-control-layers-selector{ accent-color: var(--accent); }
+.leaflet-control .legend{
+  padding: 9px 11px !important;
+  color: #374151 !important;
+}
+.leaflet-control .legend strong,
+.leaflet-control .legend .legend-title{
+  display: block;
+  margin-bottom: 5px;
+  color: #17211a;
+  font-size: 11px;
+  font-weight: 750;
+}
+.leaflet-popup-content-wrapper{
+  overflow: hidden;
+  border: 1px solid rgba(17,24,39,.10);
+  border-radius: 12px !important;
+  box-shadow: 0 12px 30px rgba(17,24,39,.18) !important;
+}
+.leaflet-popup-content{
+  min-width: 180px;
+  margin: 12px 14px !important;
+  color: #4b5563;
+  font-size: 12px;
+  line-height: 1.65 !important;
+}
+.leaflet-popup-content strong{
+  color: #26352d;
+  font-weight: 700;
+}
+.leaflet-popup-tip{ box-shadow: 3px 3px 8px rgba(17,24,39,.10) !important; }
+.leaflet-popup-close-button{
+  top: 5px !important;
+  right: 6px !important;
+  width: 26px !important;
+  height: 26px !important;
+  color: #6b7280 !important;
+  font-size: 19px !important;
+}
+
+/* =========================
+   Analysis charts
+========================= */
+.ns-tile-drawer-body{
+  color: var(--text);
+  background: #fff !important;
+}
+.ns-tile-drawer-body .nav-tabs{
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 5px;
+  margin: 6px 0 10px !important;
+  padding: 3px;
+  overflow-x: auto;
+  background: #f3f5f3;
+  border-radius: 10px;
+  scrollbar-width: thin;
+}
+.ns-tile-drawer-body .nav-tabs > li{
+  float: none;
+  flex: 0 0 auto;
+  margin: 0;
+}
+.ns-tile-drawer-body .nav-tabs > li > a{
+  margin: 0 !important;
+  padding: 7px 10px !important;
+  color: #66706a !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 8px !important;
+  font-size: 11px;
+  font-weight: 650;
+  white-space: nowrap;
+}
+.ns-tile-drawer-body .nav-tabs > li.active > a,
+.ns-tile-drawer-body .nav-tabs > li.active > a:hover,
+.ns-tile-drawer-body .nav-tabs > li.active > a:focus{
+  color: #235c27 !important;
+  background: #fff !important;
+  box-shadow: 0 2px 7px rgba(17,24,39,.09);
+}
+.ns-tile-drawer-body .tab-content{
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid rgba(17,24,39,.07);
+  border-radius: 10px;
+}
+.ns-tile-drawer-body .plotly.html-widget,
+.ns-tile-drawer-body .js-plotly-plot{
+  background: #fff !important;
+  border-radius: 10px;
+}
+.ns-tile-drawer-body .modebar{
+  top: 5px !important;
+  right: 6px !important;
+  padding: 3px !important;
+  background: rgba(255,255,255,.92) !important;
+  border: 1px solid rgba(17,24,39,.08);
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(17,24,39,.07);
+}
+.ns-tile-drawer-body .modebar-btn{ color: #526159 !important; }
+.ns-tile-drawer-body .modebar-btn:hover{ color: var(--accent) !important; }
+.ns-tile-drawer-body .shiny-output-error{
+  padding: 18px;
+  color: #8a2c26;
+  background: #fff7f6;
+  border: 1px solid #f0cfcc;
+  border-radius: 9px;
+  font-size: 12px;
+}
+.ns-tile-drawer-body .recalculating{
+  opacity: .52;
+  transition: opacity .18s ease;
+}
+
+/* Card-level progress feedback for lazy field data. Shiny adds the
+   recalculating class automatically while an output is being prepared. */
+.ns-map-slot .shiny-bound-output{
+  position: relative;
+}
+.ns-map-slot .shiny-bound-output.recalculating{
+  opacity: 1;
+}
+.ns-map-slot .shiny-bound-output.recalculating::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 990;
+  background: rgba(246, 249, 245, .76);
+  backdrop-filter: blur(2px);
+  pointer-events: none;
+}
+.ns-map-slot .shiny-bound-output.recalculating::after{
+  content: "Loading selected field…";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 991;
+  min-width: 190px;
+  padding: 44px 18px 13px;
+  transform: translate(-50%, -50%);
+  color: #314038;
+  background:
+    radial-gradient(circle at 50% 22px, transparent 8px, var(--accent) 9px 11px, transparent 12px),
+    rgba(255,255,255,.96);
+  border: 1px solid rgba(46,125,50,.18);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(17,24,39,.12);
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  pointer-events: none;
+  animation: ns-loading-breathe 1.1s ease-in-out infinite alternate;
+}
+
+/* The slot itself stays visible while Shiny temporarily hides an uninitialized
+   widget. The completed Leaflet canvas sits above and covers this fallback. */
+.ns-map-slot{
+  position: relative;
+  background: linear-gradient(145deg, #f8faf7, #f1f5ef);
+}
+.ns-map-slot::before{
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30px;
+  height: 30px;
+  margin: -30px 0 0 -15px;
+  border: 3px solid rgba(74,132,55,.18);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: ns-spin .85s linear infinite;
+}
+.ns-map-slot::after{
+  content: "Loading map data…";
+  position: absolute;
+  top: calc(50% + 14px);
+  left: 50%;
+  transform: translateX(-50%);
+  color: #526159;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.ns-map-slot .leaflet.html-widget-output{
+  position: relative;
+  z-index: 2;
+  background: #eef2ed;
+}
+.ns-map-slot .leaflet.html-widget-output[style*="visibility: hidden"]{
+  background: transparent;
+}
+@keyframes ns-spin{
+  to{ transform: rotate(360deg); }
+}
+@keyframes ns-loading-breathe{
+  from{ transform: translate(-50%, -50%) scale(.98); }
+  to{ transform: translate(-50%, -50%) scale(1.02); }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .ns-map-slot .shiny-bound-output.recalculating::after,
+  .ns-map-slot::before{ animation: none; }
+}
+
+/* Friendly output failures. Validation messages supplied intentionally by
+   the app keep their own text; unexpected technical errors use this message. */
+.ns-map-slot .shiny-output-error:not(.shiny-output-error-validation),
+.ns-tile-drawer-body .shiny-output-error:not(.shiny-output-error-validation),
+.modal .shiny-output-error:not(.shiny-output-error-validation){
+  min-height: 120px;
+  padding: 26px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: transparent !important;
+  background: #fff8f5;
+  border: 1px solid #efd5cd;
+  border-radius: 10px;
+  font-size: 0 !important;
+  text-align: center;
+}
+.ns-map-slot .shiny-output-error:not(.shiny-output-error-validation)::before,
+.ns-tile-drawer-body .shiny-output-error:not(.shiny-output-error-validation)::before,
+.modal .shiny-output-error:not(.shiny-output-error-validation)::before{
+  content: "We couldn't load this view. Check the selected field's data files, then try again.";
+  max-width: 420px;
+  color: #7b3129;
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1.55;
+}
+
+/* =========================
+   Data availability states
+========================= */
+.ns-data-state{
+  position: absolute !important;
+  inset: 0 !important;
+  height: 100% !important;
+  width: 100% !important;
+  padding: 72px 28px 74px;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(46,125,50,.08), transparent 32%),
+    linear-gradient(145deg, #f8faf7, #eef4eb);
+}
+.ns-data-state-icon{
+  width: 54px;
+  height: 54px;
+  margin-bottom: 14px;
+  display: grid;
+  place-items: center;
+  color: var(--accent);
+  background: #fff;
+  border: 1px solid rgba(46,125,50,.15);
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(17,24,39,.07);
+  font-size: 21px;
+}
+.ns-data-state strong{
+  color: #243229;
+  font-size: 16px;
+  font-weight: 750;
+}
+.ns-data-state p{
+  max-width: 350px;
+  margin: 7px 0 12px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+.ns-data-state > span{
+  padding: 6px 9px;
+  color: #647067;
+  background: rgba(255,255,255,.72);
+  border-radius: 8px;
+  font-size: 10px;
+}
+
+.ns-tile{
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  min-height: 0;
+}
+
+/* Title pill */
+.ns-tile-title{
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  z-index: 50;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 13px;
+  background: rgba(255,255,255,.92);
+  border: 1px solid rgba(17,24,39,0.10);
+}
+
+/* Leaflet must fill the tile */
+.ns-tile .leaflet,
+.ns-tile .leaflet-container{
+  height: 100% !important;
+  width: 100% !important;
+}
+
+/* =========================
+   Tile drawer (charts)
+========================= */
+.ns-tile-drawer{
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  background: rgba(255,255,255,0.94);
+  border: 1px solid rgba(17,24,39,0.10);
+  border-radius: 16px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.12);
+  overflow: hidden;
+
+  height: 48px;              /* collapsed */
+  transition: height 220ms ease;
+  z-index: 60;
+}
+
+.ns-tile-drawer.is-open{
+  height: 58%;               /* open inside tile */
+}
+
+.ns-tile-drawer-head{
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border-top: 1px solid rgba(17,24,39,0.06);
+}
+
+.ns-tile-drawer-body{
+  height: calc(100% - 48px);
+  overflow: auto;
+  padding: 0 10px 10px 10px;
+}
+
+.ns-mini-btn{
+  border-radius: 12px;
+  font-weight: 800;
+}
+
+/* Small helper note */
+.sidebar-note{
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+
+
+
+
+/* Title stays above map */
+.ns-tile-title{
+  z-index: 30 !important;
+}
+
+/* Drawer stays above map */
+.ns-tile-drawer{
+  z-index: 40 !important;
+}
+
+/* IMPORTANT: drawer must be collapsed by default (only header visible) */
+.ns-tile-drawer{
+  height: 52px !important;
+}
+
+/* When opened, it expands */
+.ns-tile-drawer.is-open{
+  height: 60% !important;
+}
+
+
+
+/* Make the conditionalPanel wrapper + leaflet output fill the whole tile */
+.ns-tile { position: relative; }
+
+.ns-map-slot{
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* conditionalPanel produces a div, so force it to fill too */
+.ns-map-slot > div{
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+}
+
+/* Leaflet fills whatever it is inside */
+.ns-map-slot .leaflet,
+.ns-map-slot .leaflet-container{
+  height: 100% !important;
+  width: 100% !important;
+}
+
+
+
+
+
+
+/* ---------- Map tile control overlays ---------- */
+.ns-tile{ position: relative; }  /* already have, but keep */
+
+.ns-tile-controls{
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  z-index: 999;                 /* above leaflet */
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(17,24,39,0.12);
+  border-radius: 14px;
+  padding: 10px 12px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.10);
+  min-width: 220px;
+}
+
+/* Make inputs look compact inside overlays */
+.ns-tile-controls .form-group{ margin-bottom: 8px; }
+.ns-tile-controls label{
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.ns-tile-controls .selectize-control,
+.ns-tile-controls .selectize-input,
+.ns-tile-controls select{
+  font-size: 13px;
+}
+
+/* Optional: hide overlay on small screens */
+@media (max-width: 900px){
+  .ns-tile-controls{ min-width: 180px; }
+}
+
+
+
+/* Overlay controls INSIDE the map */
+.ns-map-slot { position: absolute; inset: 0; }   /* you already use this */
+.ns-tile { position: relative; }
+
+/* floating dropdown box */
+.ns-map-overlay{
+  position: absolute;
+  top: 12px;
+  right: 12px;      /* change to right:12px if you want top-right */
+  z-index: 1200;   /* above leaflet controls */
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(17,24,39,0.15);
+  border-radius: 10px;
+  padding: 2px 2px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.12);
+  min-width: 10px;
+}
+
+/* make it compact */
+.ns-map-overlay .form-group{ margin-bottom: 0; }
+.ns-map-overlay label{
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.ns-map-overlay .selectize-input,
+.ns-map-overlay .selectize-control{
+  font-size: 13px;
+}
+
+
+
+
+
+
+
+/* ---------- Maximize tile behavior ---------- */
+.ns-tile { position: relative; }
+
+
+
+
+/* header area stays visible */
+.ns-tile.maximized .ns-tile-title{
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  z-index: 10001;
+}
+
+
+.ns-backdrop{
+  display: none !important;
+  position: fixed;
+  inset: 0;
+  background: transparent !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+}
+
+.ns-max-btn{
+  position:absolute;
+  top:10px;
+  right:12px;
+  z-index:10001;
+}
+
+.ns-tile.maximized{
+  position:fixed !important;
+  top:16px !important;
+  left: calc(var(--sidebar-w) + 16px) !important;
+  right:16px !important;
+  bottom:16px !important;
+  z-index:10000 !important;
+  width:auto !important;
+  height:auto !important;
+  border-radius:18px !important;
+  box-shadow:0 20px 60px rgba(0,0,0,.35) !important;
+}
+
+/* Hide other tiles */
+body.has-max .ns-tile:not(.maximized){
+  visibility:hidden;
+}
+
+/* Map fills the fullscreen tile (leave space for title/button) */
+.ns-tile.maximized .ns-map-slot{
+  position:absolute;
+  inset: 44px 12px 12px 12px;
+}
+
+
+
+
+
+
+
+/* Backdrop should NOT block interactions */
+.ns-backdrop{
+  pointer-events: none !important;
+}
+
+/* Hide other tiles completely (prevents invisible click layers) */
+body.has-max .ns-tile:not(.maximized){
+  display: none !important;
+}
+
+
+/* Close button style */
+.ns-close-btn{
+  position: absolute;
+  top: 10px;
+  right: 44px;         /* leaves space for expand icon if you keep it */
+  z-index: 10060;
+}
+
+
+
+
+
+
+
+
+/* ===== Fullscreen: make Analysis drawer a real bottom panel ===== */
+
+/* Keep the map above, and reserve space for the drawer */
+.ns-tile.maximized .ns-map-slot{
+  position: absolute !important;
+  left: 12px !important;
+  right: 12px !important;
+  top: 44px !important;
+  bottom: calc(12px + 46%) !important;  /* must match drawer height */
+}
+
+/* Drawer as bottom sheet */
+.ns-tile.maximized .ns-tile-drawer{
+  position: absolute !important;
+  left: 12px !important;
+  right: 12px !important;
+  bottom: 12px !important;
+  height: 46% !important;              /* adjust 40–55% */
+  max-height: none !important;
+  z-index: 9999 !important;
+  overflow: hidden !important;
+  background: rgba(255,255,255,0.92) !important;
+  border: 1px solid rgba(17,24,39,0.12) !important;
+  border-radius: 18px !important;
+}
+
+/* Header fixed height */
+.ns-tile.maximized .ns-tile-drawer-head{
+  height: 44px !important;
+}
+
+/* Body fills remaining height and scrolls if needed */
+.ns-tile.maximized .ns-tile-drawer-body{
+  height: calc(100% - 44px) !important;
+  overflow: auto !important;
+}
+
+/* Plotly must fill the body */
+.ns-tile.maximized .ns-tile-drawer-body .plotly.html-widget,
+.ns-tile.maximized .ns-tile-drawer-body .html-widget,
+.ns-tile.maximized .ns-tile-drawer-body .shiny-html-output,
+.ns-tile.maximized .ns-tile-drawer-body .html-widget-output{
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+}
+
+/* Ensure plotly is interactive */
+.ns-tile.maximized .ns-tile-drawer,
+.ns-tile.maximized .ns-tile-drawer-body{
+  pointer-events: auto !important;
+}
+
+
+
+
+
+
+
+/* Ensure tabs give Plotly a real height */
+.ns-tile-drawer-body .tab-content,
+.ns-tile-drawer-body .tab-pane{
+  height: 100% !important;
+}
+
+.ns-tile-drawer-body .tab-pane.active{
+  height: 100% !important;
+}
+
+
+
+
+/* Drawer body: make sure it has a real height */
+.ns-tile-drawer-body{
+  height: calc(100% - 48px); /* your drawer head is 48px */
+}
+
+/* Plotly must fill the available drawer area */
+.ns-tile-drawer-body .plotly.html-widget,
+.ns-tile-drawer-body .js-plotly-plot{
+  width: 100% !important;
+  height: 100% !important;
+}
+
+
+
+
+/* Allow the drawer container to receive events */
+.ns-tile.maximized .ns-tile-drawer,
+.ns-tile.maximized .ns-tile-drawer-body{
+  pointer-events: auto !important;
+}
+
+/* IMPORTANT: do NOT force pointer-events on all children (*) */
+
+
+
+/* ===== CLEAN FULLSCREEN INTERACTION FIX ===== */
+
+/* Fullscreen tile */
+.ns-tile.maximized{
+  position: fixed !important;
+  top: 16px !important;
+  left: calc(var(--sidebar-w) + 16px) !important;
+  right: 16px !important;
+  bottom: 16px !important;
+  z-index: 10000 !important;
+  width: auto !important;
+  height: auto !important;
+  border-radius: 18px !important;
+  box-shadow: 0 20px 60px rgba(0,0,0,.35) !important;
+}
+
+/* Hide other tiles */
+body.has-max .ns-tile:not(.maximized){
+  display: none !important;
+}
+
+/* Title and max button stay above map */
+.ns-tile.maximized .ns-tile-title{
+  z-index: 10020 !important;
+}
+.ns-tile.maximized .ns-max-btn{
+  z-index: 10021 !important;
+}
+
+/* Keep map visible and interactive */
+.ns-tile.maximized .ns-map-slot{
+  position: absolute !important;
+  left: 12px !important;
+  right: 12px !important;
+  top: 44px !important;
+  bottom: calc(12px + 46%) !important;
+  display: block !important;
+  pointer-events: auto !important;
+  z-index: 10005 !important;
+}
+
+/* Leaflet stays interactive */
+.ns-tile.maximized .ns-map-slot .leaflet-container,
+.ns-tile.maximized .ns-map-slot .leaflet,
+.ns-tile.maximized .ns-map-slot .leaflet-pane,
+.ns-tile.maximized .ns-map-slot .leaflet-control-container{
+  pointer-events: auto !important;
+}
+
+/* Dropdown overlay must sit above leaflet */
+.ns-tile.maximized .ns-map-overlay{
+  z-index: 10030 !important;
+  pointer-events: auto !important;
+}
+
+/* Selectize/dropdown must be clickable */
+.ns-tile.maximized .ns-map-overlay .selectize-control,
+.ns-tile.maximized .ns-map-overlay .selectize-input,
+.ns-tile.maximized .ns-map-overlay .selectize-dropdown,
+.ns-tile.maximized .ns-map-overlay .form-control{
+  pointer-events: auto !important;
+  z-index: 10031 !important;
+}
+
+/* Drawer at bottom */
+.ns-tile.maximized .ns-tile-drawer{
+  position: absolute !important;
+  left: 12px !important;
+  right: 12px !important;
+  bottom: 12px !important;
+  height: 46% !important;
+  z-index: 10010 !important;
+  overflow: hidden !important;
+}
+
+.ns-tile.maximized .ns-tile-drawer-body{
+  height: calc(100% - 48px) !important;
+  overflow: auto !important;
+}

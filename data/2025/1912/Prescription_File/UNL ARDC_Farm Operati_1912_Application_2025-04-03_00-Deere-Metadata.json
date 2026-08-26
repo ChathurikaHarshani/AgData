@@ -1,0 +1,131 @@
+{
+  "Version": "1.0",
+  "OrgId": 144294,
+  "ClientId": "df591f77-7c97-41b2-929d-d4ca8d6b1c0a",
+  "ClientName": "UNL ARDC",
+  "FarmId": "49e41574-0000-1000-7fa9-e1e1e1263770",
+  "FarmName": "Farm Operations",
+  "FieldId": "514a0ca5-0000-1000-4046-e1e1e1263770",
+  "FieldName": "1912",
+  "FieldOperationId": "4b31a6e3-f657-46b4-8b28-8f1c64859cfa",
+  "Operation": "Application",
+  "CropSeason": 2025,
+  "CropToken": "",
+  "CropName": "",
+  "Work": {
+    "WorkPlanId": "4fd92157-a597-4155-abf0-d645340e5194",
+    "WorkOrder": ""
+  },
+  "Product": {
+    "ProductName": "NH3 82% N",
+    "BrandName": "---",
+    "TankMix": false
+  },
+  "FieldOperationStartDate": "2025-04-03T17:43:12.738Z",
+  "FileCreatedTimeStamp": "2025-11-05T19:13:21.0484680Z",
+  "DataAttributes": [
+    {
+      "Name": "Time",
+      "Description": "Timestamp"
+    },
+    {
+      "Name": "Heading",
+      "Description": "Machine Heading"
+    },
+    {
+      "Name": "DISTANCE",
+      "Unit": "ft",
+      "Description": "Distance Travelled From Previous Point"
+    },
+    {
+      "Name": "SWATHWIDTH",
+      "Unit": "ft",
+      "Description": "Width Of Element"
+    },
+    {
+      "Name": "Product",
+      "Description": "Product Name"
+    },
+    {
+      "Name": "SECTIONID",
+      "Description": "Element Id"
+    },
+    {
+      "Name": "AppliedRate",
+      "Unit": "lb1ac-1",
+      "Description": "Applied Rate"
+    },
+    {
+      "Name": "ControlRate",
+      "Unit": "lb1ac-1",
+      "Description": "Control Rate"
+    },
+    {
+      "Name": "TargetRate",
+      "Unit": "lb1ac-1",
+      "Description": "Target Rate"
+    },
+    {
+      "Name": "Elevation",
+      "Unit": "ft",
+      "Description": "Elevation"
+    },
+    {
+      "Name": "IsoTime",
+      "Description": "Precise Timestamp"
+    },
+    {
+      "Name": "Machine",
+      "Description": "Index into the MachineUsage map, or 0 if no information exists"
+    },
+    {
+      "Name": "FUEL",
+      "Unit": "gal",
+      "Description": "Fuel"
+    },
+    {
+      "Name": "VEHICLSPEED",
+      "Unit": "mi1hr-1",
+      "Description": "Vehicle Speed"
+    }
+  ],
+  "MachineUsage": {
+    "1": {
+      "MachineId": "38ce7dd9-1952-e1b7-106f-00747dc88fa8",
+      "MachineSerial": "1RW8340DLPC240319",
+      "OperatorId": "7654a994-dbf9-4cee-befb-926d2f80c54c",
+      "OperatorName": "Rod Thorson"
+    },
+    "2": {
+      "MachineId": "3dd611c1-a94f-57d9-2dca-f4409af45d98",
+      "MachineSerial": "1RW7250REED085247",
+      "OperatorId": "a3499b15-0542-4f71-b8af-cdb16b232505",
+      "OperatorName": "Hayden Sabatka"
+    }
+  },
+  "Implements": [
+    {
+      "ImplementId": "e596a5e1-0e35-4a1d-83d1-56274b62cc8b",
+      "ImplementSerialNumber": "",
+      "ImplementWidth": {
+        "Value": 30.0,
+        "Unit": "ft"
+      }
+    },
+    {
+      "ImplementId": "faa0067c-d56d-4929-b338-2012130b1899",
+      "ImplementSerialNumber": "",
+      "ImplementWidth": {
+        "Value": 20.0,
+        "Unit": "ft"
+      }
+    }
+  ],
+  "Products": [
+    {
+      "ProductName": "NH3 82% N",
+      "BrandName": "---",
+      "TankMix": false
+    }
+  ]
+}

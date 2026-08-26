@@ -1,0 +1,1040 @@
+:root{
+  --topbar-h: 0px;         /* no red banner */
+  --sidebar-w: 300px;
+
+  --bg: #f4f6f8;
+  --panel: rgba(255,255,255,.78);
+  --panel-solid: #ffffff;
+  --text: #111827;
+  --muted: #6b7280;
+
+  --border: rgba(17,24,39,0.10);
+  --shadow: 0 10px 30px rgba(0,0,0,.08);
+  --shadow-sm: 0 6px 18px rgba(0,0,0,.08);
+
+  --radius: 18px;
+  --radius-sm: 12px;
+
+  --accent: #2E7D32;
+  --accent-2: #C6FF00;
+}
+
+html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(--text); }
+.container-fluid { padding-left: 0 !important; padding-right: 0 !important; }
+.row { margin-left: 0 !important; margin-right: 0 !important; }
+
+
+
+/* Right side scroll */
+.right-scroll{
+  position: fixed;
+  top: var(--topbar-h);
+  left: var(--sidebar-w);
+  right: 0;
+  height: calc(100vh - var(--topbar-h));
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 16px;
+  box-sizing: border-box;
+  background: var(--bg);
+}
+
+/* Card look (clean, rounded) */
+.custom-box{
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+  margin: 0 0 12px 0;
+  background: rgba(255,255,255,.92);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Map hero container + overlay cards */
+.map-hero{
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  background: #fff;
+  margin-bottom: 14px;
+}
+
+.map-overlay{
+  position: absolute;
+  top: 14px;
+  left: 14px;   /* place cards like the reference */
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  z-index: 900;
+  max-width: 560px;
+}
+
+.metric-card{
+  background: rgba(255,255,255,.88);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 10px 14px;
+  box-shadow: var(--shadow-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 160px;
+}
+
+.metric-dot{
+  width: 10px; height: 10px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.metric-label{
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.1;
+}
+.metric-value{
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+/* Make tabs pill style */
+.nav-tabs{ border-bottom: none !important; gap: 8px; margin-bottom: 10px; }
+.nav-tabs > li > a{
+  border: 1px solid var(--border) !important;
+  border-radius: 999px !important;
+  padding: 8px 14px !important;
+  color: var(--text) !important;
+  background: rgba(255,255,255,.8) !important;
+}
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover{
+  background: rgba(198,255,0,.35) !important;
+  border-color: rgba(198,255,0,.55) !important;
+  font-weight: 800;
+}
+
+/* Leaflet legend: glass + not colliding with overlay */
+.leaflet-top.leaflet-right{
+  top: 14px !important;
+  right: 14px !important;
+}
+.leaflet-top.leaflet-right .leaflet-control{
+  margin-top: 82px !important; /* pushes legend below your pills */
+}
+
+.leaflet-control{
+  background: rgba(255,255,255,.88) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0,0,0,.10) !important;
+  box-shadow: 0 6px 18px rgba(0,0,0,.08) !important;
+  border-radius: 12px !important;
+}
+
+/* Make map output fill card */
+.right-scroll .leaflet-container,
+.right-scroll .plotly,
+.right-scroll .shiny-plot-output,
+.right-scroll .shiny-html-output{ width: 100% !important; }
+
+
+.sidebar-section{
+  background: rgba(255,255,255,.92);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-sm);
+}
+
+.sidebar-title{
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.sidebar-divider{
+  height: 1px;
+  background: rgba(17,24,39,0.08);
+  margin: 10px 0 12px 0;
+}
+
+.app-logo-xl{
+  height: 150px;
+  margin: 20px auto 25px auto;
+  display: block;
+}
+
+/* ===== Sidebar theme (Harvesta-like) ===== */
+.left-panel{
+  background: linear-gradient(180deg, rgba(243,248,242,.95) 0%, rgba(255,255,255,.85) 100%) !important;
+  border-right: 1px solid rgba(46,125,50,.18) !important;
+}
+
+/* Logo block looks like a brand header */
+.logo-card{
+  background: rgba(255,255,255,.9);
+  border: 1px solid rgba(46,125,50,.18);
+  border-radius: 18px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.06);
+  padding: 14px;
+  margin-bottom: 14px;
+}
+
+/* Sidebar sections */
+.sidebar-section{
+  background: rgba(255,255,255,.92);
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 18px;
+  box-shadow: 0 10px 22px rgba(0,0,0,.06);
+  padding: 14px;
+  margin-bottom: 14px;
+}
+
+/* Section titles */
+.sidebar-title{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  font-weight: 900;
+  letter-spacing: .4px;
+  margin-bottom: 10px;
+}
+.sidebar-badge{
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(198,255,0,.35);
+  border: 1px solid rgba(198,255,0,.55);
+}
+
+/* Inputs spacing */
+.left-panel .form-group{ margin-bottom: 10px; }
+.left-panel label.control-label{
+  font-size: 12px;
+  font-weight: 800;
+  color: rgba(17,24,39,.75);
+}
+
+/* Dropdowns */
+.left-panel .selectize-input{
+  border-radius: 12px !important;
+  border: 1px solid rgba(0,0,0,.10) !important;
+  box-shadow: none !important;
+}
+
+/* Radio button list styled like a menu */
+.left-panel .radio{
+  margin-top: 8px;
+}
+.left-panel .radio label{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  transition: all .15s ease;
+  font-weight: 700;
+  color: #1f2937;
+}
+.left-panel .radio label:hover{
+  background: rgba(46,125,50,.08);
+  border-color: rgba(46,125,50,.12);
+}
+
+/* Hide default radio circle and create modern dot */
+.left-panel input[type='radio']{
+  accent-color: #2E7D32;
+  transform: scale(1.05);
+}
+
+/* Make selected radio row highlighted (pure CSS trick) */
+.left-panel .radio input[type='radio']:checked + span{
+  color: #0f172a;
+}
+
+/* Add a left active bar look */
+.left-panel .radio label:has(input[type='radio']:checked){
+  background: rgba(198,255,0,.25);
+  border-color: rgba(198,255,0,.55);
+  box-shadow: 0 8px 18px rgba(0,0,0,.06);
+}
+
+/* Buttons in Learn more */
+.left-panel .btn{
+  border-radius: 14px !important;
+  border: 1px solid rgba(0,0,0,.10) !important;
+  background: rgba(255,255,255,.92) !important;
+  font-weight: 800 !important;
+}
+.left-panel .btn:hover{
+  background: rgba(46,125,50,.08) !important;
+  border-color: rgba(46,125,50,.18) !important;
+}
+
+/* Small divider line */
+.sidebar-divider{
+  height: 1px;
+  background: rgba(17,24,39,.08);
+  margin: 10px 0 12px 0;
+}
+
+
+.logo-container-vertical{
+  text-align:center;
+}
+.app-logo-large{
+  height: 150px;
+  width: auto;
+  display:block;
+  margin: 0 auto 8px auto;
+}
+.logo-text-large{
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: #1f2937;
+}
+
+
+
+/* ===== Full-screen map + bottom drawer layout ===== */
+:root{
+  --drawer-collapsed: 56px;     /* height when collapsed (tab bar visible) */
+  --drawer-expanded: 42vh;      /* how tall when expanded */
+  --gap: 14px;
+}
+
+/* Right side becomes a fixed viewport (no scrolling) */
+.right-scroll{
+  overflow: hidden !important;   /* ✅ remove scroll */
+  padding: 16px !important;
+}
+
+/* Container that fills available height */
+.ns-stage{
+  position: relative;
+  height: calc(100vh - var(--topbar-h));
+}
+
+/* Map takes full height minus drawer collapsed height */
+.ns-map-wrap{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--drawer-collapsed) + var(--gap));
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  background: #fff;
+}
+
+/* Force leaflet to fill its parent (instead of fixed px heights) */
+.ns-map-wrap .leaflet-container{
+  height: 100% !important;
+  width: 100% !important;
+}
+
+/* Bottom drawer */
+.ns-drawer{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  height: var(--drawer-collapsed);
+  border-radius: 18px;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0,0,0,.10);
+  box-shadow: 0 16px 40px rgba(0,0,0,.12);
+
+  overflow: hidden;
+  transition: height .22s ease;
+}
+
+/* Expanded state */
+.ns-drawer.open{
+  height: var(--drawer-expanded);
+}
+
+/* Drawer header / handle */
+.ns-drawer-head{
+  height: var(--drawer-collapsed);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(0,0,0,.08);
+}
+
+.ns-handle{
+  width: 48px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(17,24,39,.20);
+  margin: 0 auto;
+}
+
+.ns-drawer-btn{
+  border: 1px solid rgba(0,0,0,.10);
+  background: rgba(255,255,255,.88);
+  border-radius: 12px;
+  padding: 6px 10px;
+  font-weight: 800;
+}
+
+/* Drawer body scrolls internally (not the page) */
+.ns-drawer-body{
+  height: calc(100% - var(--drawer-collapsed));
+  overflow-y: auto;
+  padding: 12px;
+}
+
+/* Pills tabs in drawer */
+.ns-drawer .nav-tabs{ margin-bottom: 12px !important; }
+
+/* Make plots responsive */
+.ns-drawer-body .plotly,
+.ns-drawer-body .shiny-plot-output{
+  width: 100% !important;
+}
+
+
+
+  $(document).on('click', '#toggleDrawer', function(){
+    $('#analysisDrawer').toggleClass('open');
+  });
+
+  // Optional: when user clicks any tab, open drawer automatically
+  $(document).on('click', '#analysisDrawer .nav-tabs a', function(){
+    $('#analysisDrawer').addClass('open');
+  });
+
+
+
+.ns-drawer { height: 56px; overflow: hidden; }
+.ns-drawer.open { height: 42vh; }
+.ns-drawer-body { height: calc(100% - 56px); overflow-y: auto; padding: 12px; }
+.ns-drawer{
+  background: rgba(255,255,255,.96) !important;
+}
+.ns-drawer-body{
+  background: rgba(255,255,255,.96) !important;
+}
+
+
+
+
+
+
+
+
+
+
+/* ===== Harvesta-like left sidebar ===== */
+:root{
+  --sb-bg: #eef0e6;        /* warm light */
+  --sb-card: rgba(255,255,255,.82);
+  --sb-border: rgba(0,0,0,.06);
+  --sb-text: #1f2937;
+  --sb-muted: rgba(31,41,55,.65);
+  --sb-active: rgba(198,255,0,.30);
+  --sb-active-border: rgba(198,255,0,.55);
+}
+
+/* Sidebar container */
+.left-panel{
+  background: var(--sb-bg) !important;
+  border-right: 1px solid rgba(0,0,0,.06) !important;
+  padding: 18px 16px !important;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+/* Logo card */
+.logo-card{
+  background: rgba(255,255,255,.70) !important;
+  border: 1px solid var(--sb-border) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 14px 30px rgba(0,0,0,.06) !important;
+  padding: 18px !important;
+}
+
+/* Section card */
+.sidebar-section{
+  background: var(--sb-card) !important;
+  border: 1px solid var(--sb-border) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 14px 30px rgba(0,0,0,.06) !important;
+  padding: 16px !important;
+  margin-bottom: 16px !important;
+}
+
+/* Section title + badge */
+.sidebar-title{
+  font-size: 15px !important;
+  font-weight: 900 !important;
+  letter-spacing: .3px !important;
+  color: var(--sb-text) !important;
+  margin-bottom: 12px !important;
+}
+.sidebar-badge{
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  padding: 5px 12px !important;
+  border-radius: 999px !important;
+  background: rgba(0,0,0,.06) !important;
+  border: 1px solid rgba(0,0,0,.06) !important;
+}
+
+/* Labels above dropdowns */
+.left-panel label.control-label{
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  color: var(--sb-muted) !important;
+  margin-bottom: 6px !important;
+}
+
+/* Dropdown styling */
+.left-panel .selectize-input{
+  border-radius: 16px !important;
+  border: 1px solid rgba(0,0,0,.10) !important;
+  padding: 10px 12px !important;
+  font-size: 14px !important;
+  box-shadow: none !important;
+}
+
+/* ===== Menu (radio) = Harvesta pill rows ===== */
+.left-panel .radio{
+  margin-top: 10px !important;
+}
+
+.left-panel .radio label{
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  padding: 12px 12px !important;
+  border-radius: 18px !important;
+  border: 1px solid transparent !important;
+  background: transparent !important;
+  cursor: pointer !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;   /* ✅ bigger menu text */
+  color: var(--sb-text) !important;
+  transition: all .15s ease;
+}
+
+/* Icon bubble (works when you add icon() in choiceNames) */
+.left-panel .radio label i{
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,.06);
+  color: rgba(31,41,55,.85);
+  font-size: 16px;
+}
+
+/* Hover */
+.left-panel .radio label:hover{
+  background: rgba(0,0,0,.04) !important;
+  border-color: rgba(0,0,0,.06) !important;
+}
+
+/* Hide default radio circle */
+.left-panel .radio input[type='radio']{
+  display: none !important;
+}
+
+/* Active item highlight */
+.left-panel .radio label:has(input[type='radio']:checked){
+  background: var(--sb-active) !important;
+  border-color: var(--sb-active-border) !important;
+  box-shadow: 0 10px 22px rgba(0,0,0,.06) !important;
+}
+
+/* Active icon bubble */
+.left-panel .radio label:has(input[type='radio']:checked) i{
+  background: rgba(255,255,255,.75);
+  border: 1px solid rgba(0,0,0,.06);
+}
+
+/* Learn more buttons */
+.left-panel .btn{
+  border-radius: 16px !important;
+  padding: 10px 12px !important;
+  font-weight: 800 !important;
+  font-size: 14px !important;
+  background: rgba(255,255,255,.82) !important;
+  border: 1px solid rgba(0,0,0,.10) !important;
+}
+.left-panel .btn:hover{
+  background: rgba(0,0,0,.04) !important;
+}
+
+
+
+/* =========================
+   Collapsible sidebar
+========================= */
+.sidebar-wrap{
+  position: fixed;
+  top: var(--topbar-h);
+  left: 0;
+  width: var(--sidebar-w);
+  height: calc(100vh - var(--topbar-h));
+  z-index: 1000;
+}
+
+html.ns-sidebar-collapsed{
+  --sidebar-w: 0px;
+}
+html.ns-sidebar-collapsed #nsSidebarWrap{
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Smooth transition */
+.right-scroll{
+  transition: left 0.25s ease, width 0.25s ease;
+  min-height: 0;
+}
+
+/* Toggle button */
+.ns-sidebar-toggle{
+  position: sticky;
+  top: 10px;
+  z-index: 9999;
+  border-radius: 12px;
+  font-weight: 800;
+}
+
+/* =========================
+   2x2 dashboard tiles
+========================= */
+.ns-grid-2x2{
+  height: calc(100vh - var(--topbar-h) - 24px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 14px;
+  min-height: 0;
+}
+
+.ns-tile{
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  min-height: 0;
+}
+
+/* Title pill */
+.ns-tile-title{
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  z-index: 50;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 13px;
+  background: rgba(255,255,255,.92);
+  border: 1px solid rgba(17,24,39,0.10);
+}
+
+/* Leaflet must fill the tile */
+.ns-tile .leaflet,
+.ns-tile .leaflet-container{
+  height: 100% !important;
+  width: 100% !important;
+}
+
+/* =========================
+   Tile drawer (charts)
+========================= */
+.ns-tile-drawer{
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  background: rgba(255,255,255,0.94);
+  border: 1px solid rgba(17,24,39,0.10);
+  border-radius: 16px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.12);
+  overflow: hidden;
+
+  height: 48px;              /* collapsed */
+  transition: height 220ms ease;
+  z-index: 60;
+}
+
+.ns-tile-drawer.is-open{
+  height: 58%;               /* open inside tile */
+}
+
+.ns-tile-drawer-head{
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border-top: 1px solid rgba(17,24,39,0.06);
+}
+
+.ns-tile-drawer-body{
+  height: calc(100% - 48px);
+  overflow: auto;
+  padding: 0 10px 10px 10px;
+}
+
+.ns-mini-btn{
+  border-radius: 12px;
+  font-weight: 800;
+}
+
+/* Small helper note */
+.sidebar-note{
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+
+
+
+
+/* Title stays above map */
+.ns-tile-title{
+  z-index: 30 !important;
+}
+
+/* Drawer stays above map */
+.ns-tile-drawer{
+  z-index: 40 !important;
+}
+
+/* IMPORTANT: drawer must be collapsed by default (only header visible) */
+.ns-tile-drawer{
+  height: 52px !important;
+}
+
+/* When opened, it expands */
+.ns-tile-drawer.is-open{
+  height: 60% !important;
+}
+
+
+
+/* Make the conditionalPanel wrapper + leaflet output fill the whole tile */
+.ns-tile { position: relative; }
+
+.ns-map-slot{
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* conditionalPanel produces a div, so force it to fill too */
+.ns-map-slot > div{
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+}
+
+/* Leaflet fills whatever it is inside */
+.ns-map-slot .leaflet,
+.ns-map-slot .leaflet-container{
+  height: 100% !important;
+  width: 100% !important;
+}
+
+
+
+
+
+
+/* ---------- Map tile control overlays ---------- */
+.ns-tile{ position: relative; }  /* already have, but keep */
+
+.ns-tile-controls{
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  z-index: 999;                 /* above leaflet */
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(17,24,39,0.12);
+  border-radius: 14px;
+  padding: 10px 12px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.10);
+  min-width: 220px;
+}
+
+/* Make inputs look compact inside overlays */
+.ns-tile-controls .form-group{ margin-bottom: 8px; }
+.ns-tile-controls label{
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.ns-tile-controls .selectize-control,
+.ns-tile-controls .selectize-input,
+.ns-tile-controls select{
+  font-size: 13px;
+}
+
+/* Optional: hide overlay on small screens */
+@media (max-width: 900px){
+  .ns-tile-controls{ min-width: 180px; }
+}
+
+
+
+/* Overlay controls INSIDE the map */
+.ns-map-slot { position: absolute; inset: 0; }   /* you already use this */
+.ns-tile { position: relative; }
+
+/* floating dropdown box */
+.ns-map-overlay{
+  position: absolute;
+  top: 12px;
+  right: 12px;      /* change to right:12px if you want top-right */
+  z-index: 1200;   /* above leaflet controls */
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(17,24,39,0.15);
+  border-radius: 10px;
+  padding: 2px 2px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.12);
+  min-width: 10px;
+}
+
+/* make it compact */
+.ns-map-overlay .form-group{ margin-bottom: 0; }
+.ns-map-overlay label{
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.ns-map-overlay .selectize-input,
+.ns-map-overlay .selectize-control{
+  font-size: 13px;
+}
+
+
+
+
+
+
+
+/* ---------- Maximize tile behavior ---------- */
+.ns-tile { position: relative; }
+
+
+
+
+/* header area stays visible */
+.ns-tile.maximized .ns-tile-title{
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  z-index: 10001;
+}
+
+
+/* ===== Fullscreen tile ===== */
+.ns-backdrop{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.45);
+  z-index:9000;
+}
+
+.ns-max-btn{
+  position:absolute;
+  top:10px;
+  right:12px;
+  z-index:10001;
+}
+
+.ns-tile.maximized{
+  position:fixed !important;
+  top:16px !important;
+  left: calc(var(--sidebar-w) + 16px) !important;
+  right:16px !important;
+  bottom:16px !important;
+  z-index:10000 !important;
+  width:auto !important;
+  height:auto !important;
+  border-radius:18px !important;
+  box-shadow:0 20px 60px rgba(0,0,0,.35) !important;
+}
+
+/* Hide other tiles */
+body.has-max .ns-tile:not(.maximized){
+  visibility:hidden;
+}
+
+/* Map fills the fullscreen tile (leave space for title/button) */
+.ns-tile.maximized .ns-map-slot{
+  position:absolute;
+  inset: 44px 12px 12px 12px;
+}
+
+
+
+
+
+
+
+/* Backdrop should NOT block interactions */
+.ns-backdrop{
+  pointer-events: none !important;
+}
+
+/* Hide other tiles completely (prevents invisible click layers) */
+body.has-max .ns-tile:not(.maximized){
+  display: none !important;
+}
+
+
+/* Close button style */
+.ns-close-btn{
+  position: absolute;
+  top: 10px;
+  right: 44px;         /* leaves space for expand icon if you keep it */
+  z-index: 10060;
+}
+
+
+
+
+
+
+
+
+/* ===== Fullscreen: make Analysis drawer a real bottom panel ===== */
+
+/* Keep the map above, and reserve space for the drawer */
+.ns-tile.maximized .ns-map-slot{
+  position: absolute !important;
+  left: 12px !important;
+  right: 12px !important;
+  top: 44px !important;
+  bottom: calc(12px + 46%) !important;  /* must match drawer height */
+}
+
+/* Drawer as bottom sheet */
+.ns-tile.maximized .ns-tile-drawer{
+  position: absolute !important;
+  left: 12px !important;
+  right: 12px !important;
+  bottom: 12px !important;
+  height: 46% !important;              /* adjust 40–55% */
+  max-height: none !important;
+  z-index: 9999 !important;
+  overflow: hidden !important;
+  background: rgba(255,255,255,0.92) !important;
+  border: 1px solid rgba(17,24,39,0.12) !important;
+  border-radius: 18px !important;
+}
+
+/* Header fixed height */
+.ns-tile.maximized .ns-tile-drawer-head{
+  height: 44px !important;
+}
+
+/* Body fills remaining height and scrolls if needed */
+.ns-tile.maximized .ns-tile-drawer-body{
+  height: calc(100% - 44px) !important;
+  overflow: auto !important;
+}
+
+/* Plotly must fill the body */
+.ns-tile.maximized .ns-tile-drawer-body .plotly.html-widget,
+.ns-tile.maximized .ns-tile-drawer-body .html-widget,
+.ns-tile.maximized .ns-tile-drawer-body .shiny-html-output,
+.ns-tile.maximized .ns-tile-drawer-body .html-widget-output{
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+}
+
+/* Ensure plotly is interactive */
+.ns-tile.maximized .ns-tile-drawer,
+.ns-tile.maximized .ns-tile-drawer-body{
+  pointer-events: auto !important;
+}
+
+
+
+
+
+
+
+/* Ensure tabs give Plotly a real height */
+.ns-tile-drawer-body .tab-content,
+.ns-tile-drawer-body .tab-pane{
+  height: 100% !important;
+}
+
+.ns-tile-drawer-body .tab-pane.active{
+  height: 100% !important;
+}
+
+
+
+
+/* Drawer body: make sure it has a real height */
+.ns-tile-drawer-body{
+  height: calc(100% - 48px); /* your drawer head is 48px */
+}
+
+/* Plotly must fill the available drawer area */
+.ns-tile-drawer-body .plotly.html-widget,
+.ns-tile-drawer-body .js-plotly-plot{
+  width: 100% !important;
+  height: 100% !important;
+}
+
+
+
+
+
+
+/* Allow the drawer container to receive events */
+.ns-tile.maximized .ns-tile-drawer,
+.ns-tile.maximized .ns-tile-drawer-body{
+  pointer-events: auto !important;
+}
+
+
+
+
+
+
+/* Fullscreen: block Leaflet map interactions only (not the overlay UI) */
+.ns-tile.maximized .ns-map-slot .leaflet-container{
+  pointer-events: none !important;   /* blocks map pan/zoom/click */
+}
+
+/* But keep your overlay dropdown clickable */
+.ns-tile.maximized .ns-map-overlay,
+.ns-tile.maximized .ns-map-overlay *{
+  pointer-events: auto !important;
+  z-index: 30000 !important;
+}/* IMPORTANT: do NOT force pointer-events on all children (*) */

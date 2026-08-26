@@ -1,0 +1,8 @@
+.git
+.Rproj.user
+.RData
+.Rhistory
+R/library
+R/library/**
+shiny-*.log
+shiny-*.err.log
