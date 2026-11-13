@@ -89,8 +89,8 @@ field_config <- data.frame(
     "Yield_1402W",
     "Yield_1912",
     "Yield_2436N",
-    NA,
-    NA
+    "Yield_1402E_26",
+    "Yield_2436S_26"
   ),
   summary_output = c(
     "data_table_2436S",
@@ -103,6 +103,14 @@ field_config <- data.frame(
   ),
   stringsAsFactors = FALSE
 )
+
+field_config$yield_xlsx <- NA_character_
+field_config$yield_xlsx[field_config$year == "2026"] <- c(
+  "Yield/26_1402E_Harvest_clean.xlsx",
+  "Yield/26_2436S_Harvest_clean.xlsx"
+)
+# Harvest eastings/northings use WGS 84 / UTM zone 14N for both fields.
+field_config$yield_crs <- ifelse(field_config$year == "2026", 32614L, NA_integer_)
 
 nitrogen_date_choices <- list(
   "2024|2436 S" = c(

@@ -883,14 +883,12 @@ ui <- fluidPage(
             div(
               class = "ns-map-slot",
               conditionalPanel(
-                "input.GrowingSeason=='2026'",
-                div(
-                  class = "ns-data-state",
-                  div(class = "ns-data-state-icon", icon("bar-chart")),
-                  strong("Yield data is not available yet"),
-                  p("Harvest results have not been published for this field and season."),
-                  span(icon("clock-o"), " Yield insights will appear after harvest processing.")
-                )
+                "input.GrowingSeason=='2026' && input.AvailableFields=='1402 E'",
+                leafletOutput("Yield_1402E_26", height = "100%")
+              ),
+              conditionalPanel(
+                "input.GrowingSeason=='2026' && input.AvailableFields=='2436 S'",
+                leafletOutput("Yield_2436S_26", height = "100%")
               ),
               conditionalPanel(
                 "input.GrowingSeason=='2024' && input.AvailableFields=='2436 S'",
@@ -924,6 +922,14 @@ ui <- fluidPage(
               ),
               div(
                 class = "ns-tile-drawer-body",
+                conditionalPanel(
+                  "input.GrowingSeason=='2026' && input.AvailableFields=='1402 E'",
+                  plotlyOutput("Yieldplot1_1402E_26", height = "100%")
+                ),
+                conditionalPanel(
+                  "input.GrowingSeason=='2026' && input.AvailableFields=='2436 S'",
+                  plotlyOutput("Yieldplot1_2436S_26", height = "100%")
+                ),
                 conditionalPanel(
                   "input.GrowingSeason=='2024' && input.AvailableFields=='2436 S'",
                   plotlyOutput("Yieldplot1_2436", height = "100%")

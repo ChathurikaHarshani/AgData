@@ -289,7 +289,37 @@ As a result, there is a need for a tool that can evaluate and visualize nitrogen
 
   ##########################2026 N Treatment Summary############################
 
-  build_2026_n_summary <- function(nrx_data) {
+  yield_1402E_26 <- reactive(agdata_load_yield("2026", "1402 E"))
+  yield_2436S_26 <- reactive(agdata_load_yield("2026", "2436 S"))
+
+  register_2026_yield <- function(map_id, chart_id, harvest) {
+    output[[map_id]] <- renderLeaflet({
+      plots <- harvest()$plots
+      field_map <- tm_shape(plots) +
+        tm_polygons(midpoint = 0, col = "Yield",
+                    popup.vars = c("Plot No:" = "Plot_Numbe",
+                                   "Yield bu/ac:" = "Yield",
+                                   "Treatment:" = "Treatment",
+                                   "Cover Crop:" = "Cover_Crop",
+                                   "Moisture %:" = "Moisture")) +
+        tm_borders(lwd = 0.5) +
+        tm_layout(frame = FALSE, inner.margins = c(0, 0, 0, 0))
+      tmap_leaflet(field_map) %>% addProviderTiles("Esri.WorldImagery")
+    })
+    output[[chart_id]] <- plotly::renderPlotly({
+      data <- harvest()$summary
+      validate(need(nrow(data) > 0, "No harvest points overlap treatment plots."))
+      plot <- ggplot(data, aes(x = Treatment, y = Yield, fill = Cover_Crop)) +
+        geom_boxplot(outlier.shape = NA) + geom_point(position = position_jitterdodge(jitter.width = 0.1), size = 1.5) +
+        labs(title = "Plot mean yield by treatment", x = "Treatment", y = "Yield (bu/ac)", fill = "Cover crop") +
+        theme_minimal() + theme(axis.text.x = element_text(angle = 45, hjust = 1))
+      plotly::ggplotly(plot)
+    })
+  }
+  register_2026_yield("Yield_1402E_26", "Yieldplot1_1402E_26", yield_1402E_26)
+  register_2026_yield("Yield_2436S_26", "Yieldplot1_2436S_26", yield_2436S_26)
+
+  build_2026_n_summary <- function(nrx_data, harvest) {
     nrx_data %>%
       st_drop_geometry() %>%
       transmute(
@@ -314,12 +344,17 @@ As a result, there is a need for a tool that can evaluate and visualize nitrogen
         ),
         across(where(is.numeric), ~ round(.x, 1))
       ) %>%
+      left_join(
+        harvest$summary %>% transmute(`Plot No` = Plot_Numbe, `Yield (bu/ac)` = round(Yield, 1),
+                                     `Moisture (%)` = round(Moisture, 1), `Harvest Records` = Harvest_Records),
+        by = "Plot No"
+      ) %>%
       arrange(`Plot No`)
   }
 
   output$data_table_1402E_26 <- renderDT({
     datatable(
-      build_2026_n_summary(selected_map_data_1402E_26()),
+      build_2026_n_summary(selected_map_data_1402E_26(), yield_1402E_26()),
       options = list(pageLength = 15, scrollX = TRUE)
     ) %>%
       formatStyle(
@@ -333,7 +368,7 @@ As a result, there is a need for a tool that can evaluate and visualize nitrogen
 
   output$data_table_2436S_26 <- renderDT({
     datatable(
-      build_2026_n_summary(field_2436S_26()$map_data),
+      build_2026_n_summary(field_2436S_26()$map_data, yield_2436S_26()),
       options = list(pageLength = 15, scrollX = TRUE)
     ) %>%
       formatStyle(
